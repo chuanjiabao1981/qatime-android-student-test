@@ -1,12 +1,8 @@
 package main;
 
-import com.android.volley.toolbox.Volley;
-
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
