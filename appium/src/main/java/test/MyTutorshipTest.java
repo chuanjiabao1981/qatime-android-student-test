@@ -1,6 +1,7 @@
 package test;
 
 import java.net.MalformedURLException;
+import java.util.List;
 
 import io.appium.java_client.android.AndroidElement;
 import main.AppiumTest;
@@ -21,7 +22,15 @@ public class MyTutorshipTest extends AppiumTest {
         AndroidElement calssed = driver.findElementById("calssed");
         calssed.click();
         Time(3);
-        totalship();
+        //课程表tab点击
+//        totalship();
+
+        List<AndroidElement> list = driver.findElementsById("list");
+        if (list.size() > 0) {
+            list.get(0).findElementById("video").click();
+            //直播页面
+
+        }
     }
 
 
@@ -41,7 +50,6 @@ public class MyTutorshipTest extends AppiumTest {
         AndroidElement tabText3 = driver.findElementById("tab_text3");
         tabText3.click();
         Time(3);
-
     }
 
 

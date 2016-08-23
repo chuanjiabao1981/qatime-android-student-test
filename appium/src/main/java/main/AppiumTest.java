@@ -96,23 +96,23 @@ public abstract class AppiumTest {
             List<AndroidElement> pass = driver.findElementsById("pass");
             //登陆按钮
             AndroidElement login = driver.findElementById("login");
-            login.click();
-            Time(2);
-
-            edit.get(0).sendKeys("15617685965");
-            login.click();
-            Time(2);
-
-            pass.get(0).sendKeys("12");
-            login.click();
-            Time(2);
+//            login.click();
+//            Time(2);
+//
+//            edit.get(0).sendKeys("15617685965");
+//            login.click();
+//            Time(2);
+//
+//            pass.get(0).sendKeys("12");
+//            login.click();
+//            Time(2);
 
             edit.get(0).sendKeys("15617685965");
             pass.get(0).sendKeys("123456");
             login.click();
             Time(2);
             onHome();
-//            new TouchAction(driver).press(edit.get(0), 0, 0).release();
+
         } catch (NoSuchElementException e) {
             try {
                 Slide();
