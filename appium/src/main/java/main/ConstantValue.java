@@ -33,4 +33,8 @@ public class ConstantValue {
      * 要启动的Activity
      */
     public static String appActivity = "activity.StartActivity";
+    /**
+     * token
+     */
+    public static String token = "";
 }
