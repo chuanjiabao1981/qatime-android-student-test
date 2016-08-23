@@ -27,15 +27,15 @@ public class HomeTest extends AppiumTest {
         List<AndroidElement> whole = driver.findElementsById("tab_text2");//全部
 
         //最新下滑刷新
-        Time(2);
+        Time(3);
         int width = driver.manage().window().getSize().width;
         int height = driver.manage().window().getSize().height;
-        driver.swipe(width / 2, height, width / 2, height / 2, 200);
-        Time(2);
+        driver.swipe(width / 2, height - 10, width / 2, height / 2, 500);
+        Time(3);
         //全部下滑刷新
         whole.get(0).click();//切换至全部页面
-        driver.swipe(width / 2, height, width / 2, height / 2, 200);
-        Time(2);
+        driver.swipe(width / 2, height - 10, width / 2, height / 2, 500);
+        Time(3);
         lastnews.get(0).click();
 
     }

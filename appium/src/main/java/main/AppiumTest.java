@@ -22,7 +22,7 @@ public abstract class AppiumTest {
     public AppiumDriver<AndroidElement> driver;
 
     /**
-     * <p>
+     * <p/>
      * 每个新建的测试代码都要继承这个基类  就不用每次都写配置代码了
      */
     @Before
@@ -34,7 +34,7 @@ public abstract class AppiumTest {
             capabilities.setCapability("platformVersion", ConstantValue.platformVersion);//手机版本
             capabilities.setCapability("app", app.getAbsolutePath());//获取当前app包的路径
 //            capabilities.setCapability("unicodeKeyboard","True");//实现中文输入
-//            capabilities.setCapability("resetKeyboard","True");//输入结束隐藏键盘
+            capabilities.setCapability("resetKeyboard","True");//输入结束隐藏键盘
             capabilities.setCapability("appPackage", ConstantValue.appPackage);//app包名
             capabilities.setCapability("noSign", "True");//避免重签名
             capabilities.setCapability("StartActivity", ConstantValue.appActivity);//测试起始类，一般都是引导页
@@ -47,11 +47,11 @@ public abstract class AppiumTest {
 
     @Test
     public void test() throws InterruptedException, MalformedURLException {
-        Time(2);
+        Time(5);
 
         try { //首页测试
             onHome();//用于主页的测试
-            testStart();//用于到主页后的操作
+
         } catch (NoSuchElementException e) {
             //捕获可能为空的异常  避免测试因为找不到控件崩溃
             login();
@@ -63,6 +63,7 @@ public abstract class AppiumTest {
      */
     public void onHome() throws InterruptedException, NoSuchElementException, MalformedURLException {
         AndroidElement framentLayout = driver.findElementById("fragmentlayout");//此行用于标示是否是主页,不是就throw 异常,由起始页到登录页
+        testStart();//用于到主页后的操作
     }
 
 
@@ -106,7 +107,7 @@ public abstract class AppiumTest {
             login.click();
             Time(2);
 
-            edit.get(0).sendKeys("15617685965@163.com");
+            edit.get(0).sendKeys("15617685965");
             pass.get(0).sendKeys("123456");
             login.click();
             Time(2);
