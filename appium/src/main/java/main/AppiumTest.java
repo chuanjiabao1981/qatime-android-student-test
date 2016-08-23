@@ -99,7 +99,7 @@ public abstract class AppiumTest {
             login.click();
             Time(2);
 
-            edit.get(0).sendKeys("15617685965");
+            edit.get(0).sendKeys("15638780663");
             login.click();
             Time(2);
 
@@ -107,10 +107,21 @@ public abstract class AppiumTest {
             login.click();
             Time(2);
 
-            edit.get(0).sendKeys("15617685965");
+            edit.get(0).sendKeys("15638780663");
             pass.get(0).sendKeys("123456");
             login.click();
             Time(2);
+
+            edit.get(0).sendKeys("778177257@qq.com");
+            pass.get(0).sendKeys("123456");
+            login.click();
+            Time(2);
+
+            edit.get(0).sendKeys("15638780663");
+            pass.get(0).sendKeys("111111");
+            login.click();
+            Time(2);
+
             onHome();
 //            new TouchAction(driver).press(edit.get(0), 0, 0).release();
         } catch (NoSuchElementException e) {
