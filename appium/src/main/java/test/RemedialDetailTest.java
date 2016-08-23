@@ -1,6 +1,5 @@
 package test;
 
-import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
 
 import java.net.MalformedURLException;

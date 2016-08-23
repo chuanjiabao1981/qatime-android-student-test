@@ -1,8 +1,11 @@
 package test;
 
+import org.openqa.selenium.NoSuchElementException;
+
 import java.net.MalformedURLException;
 import java.util.List;
 
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidElement;
 import main.AppiumTest;
@@ -25,63 +28,64 @@ public class MyTutorshipTest extends AppiumTest {
         Time(3);
         //课程表tab点击
         totalship();
-//直播
+        //直播
         List<AndroidElement> list = driver.findElementsById("list");
         if (list.size() > 0) {
             list.get(0).findElementById("video").click();
             //直播页面
             Time(1);
-            AndroidElement videoPlayer = driver.findElementById("video_player");//点击空屏幕
-            videoPlayer.click();
-            int width = driver.manage().window().getSize().width;
-            int height = driver.manage().window().getSize().height;
-            new TouchAction(driver).press(videoPlayer, width / 2, height - 100).release();
-
-            Time(1);
-            AndroidElement play = driver.findElementById("play");//播放暂停
-            play.click();
-            Time(2);
-            play.click();
-            Time(2);
-
-            AndroidElement zoom = driver.findElementById("zoom");//全屏
-            zoom.click();
-            Time(2);
-            AndroidElement playerexit = driver.findElementById("player_exit");//全屏返回
-            playerexit.click();
-            Time(2);
-            zoom.click();//二次全屏
-            Time(2);
-            playerexit.click();
-            Time(2);
-
-            AndroidElement livedetails = driver.findElementById("tab_text3");//直播详情
-            livedetails.click();
-            Time(3);
-//
-//            int width = driver.manage().window().getSize().width;
-//            int height = driver.manage().window().getSize().height;//详情页内部上下滑动 高度待定
-            driver.swipe(height - width - 5, height / 5, width - 5, height / 2, 200);
-            Time(2);
-            driver.swipe(height - width - 5, height / 5, width - 5, height / 2, 200);
-            Time(2);
-            driver.swipe(height - width - 5, height / 2, width - 5, height / 5, 200);
-            Time(2);
-            driver.swipe(height - width - 5, height / 2, width - 5, height / 5, 200);
-            Time(2);
-
-            AndroidElement notice = driver.findElementById("tab_text1");//公告
-            notice.click();
-            Time(3);
-            driver.swipe(width / 2, height - 10, width / 2, height / 2, 500);//公告上拉刷新
-            Time(3);
-            AndroidElement chat = driver.findElementById("tab_text2");//聊天
-            chat.click();
-            Time(3);
-            AndroidElement menber = driver.findElementById("tab_text4");//成员列表
-            menber.click();
-            Time(3);
+            try {
+                videoClick();
+            } catch (NoSuchElementException e) {
+                driver.quit();
+                e.printStackTrace();
+            }
         }
+    }
+
+    private void videoClick() throws InterruptedException, NoSuchElementException {
+        AndroidElement videoPlayer = driver.findElementById("video_player");//点击空屏幕
+
+        int width = driver.manage().window().getSize().width;
+        int height = driver.manage().window().getSize().height;
+
+        Time(2);
+        MobileElement play = driver.findElementById("play");//播放暂停
+        play.click();
+        Time(2);
+        play.click();
+        Time(2);
+        videoPlayer.click();
+
+        AndroidElement zoom = driver.findElementById("zoom");//全屏
+        zoom.click();
+        Time(2);
+
+        AndroidElement playerexit = driver.findElementById("player_exit");//全屏返回
+        playerexit.click();
+        Time(2);
+        zoom.click();//二次全屏
+        Time(2);
+        playerexit.click();
+        Time(2);
+
+        AndroidElement livedetails = driver.findElementById("tab_text3");//直播详情
+        livedetails.click();
+        Time(15);
+
+        driver.swipe(width / 2, height - 30, width / 2, height -200, 500);
+        Time(20);
+
+
+        AndroidElement notice = driver.findElementById("tab_text1");//公告
+        notice.click();
+        Time(3);
+        AndroidElement chat = driver.findElementById("tab_text2");//聊天
+        chat.click();
+        Time(3);
+        AndroidElement member = driver.findElementById("tab_text4");//成员列表
+        member.click();
+        Time(3);
     }
 
 

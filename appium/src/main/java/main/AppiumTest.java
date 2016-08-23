@@ -39,7 +39,6 @@ public abstract class AppiumTest {
             capabilities.setCapability("noSign", "True");//避免重签名
             capabilities.setCapability("StartActivity", ConstantValue.appActivity);//测试起始类，一般都是引导页
             driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);//初始化
-            System.out.print(driver.getContext().toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
