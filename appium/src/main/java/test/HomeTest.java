@@ -6,14 +6,13 @@ import java.net.MalformedURLException;
 import java.util.List;
 
 import io.appium.java_client.android.AndroidElement;
-import main.AppiumTest;
 
 /**
  * @author luntify
  * @date 2016/8/22 12:20
  * @Description 主页测试   mainactivity
  */
-public class HomeTest extends AppiumTest {
+public class HomeTest extends LoginTest {
     @Override
     protected void testStart() throws InterruptedException, MalformedURLException {
 

@@ -1,9 +1,7 @@
-package main;
+package test;
 
 
-import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -11,19 +9,17 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import main.BaseAppiumTest;
+import main.ConstantValue;
 
-public abstract class AppiumTest {
-
-    public AppiumDriver<AndroidElement> driver;
-
+public abstract class LoginTest extends BaseAppiumTest {
     /**
      * <p>
      * 每个新建的测试代码都要继承这个基类  就不用每次都写配置代码了
+     * 必须登陆后才能进行其他操作
      */
     @Before
     public void testBegin() {
@@ -44,12 +40,12 @@ public abstract class AppiumTest {
         }
     }
 
+
+    @Override
     public void test() throws InterruptedException, MalformedURLException {
         Time(5);
-
         try { //首页测试
             onHome();//用于主页的测试
-
         } catch (NoSuchElementException e) {
             //捕获可能为空的异常  避免测试因为找不到控件崩溃
             login();
@@ -94,21 +90,28 @@ public abstract class AppiumTest {
             List<AndroidElement> pass = driver.findElementsById("pass");
             //登陆按钮
             AndroidElement login = driver.findElementById("login");
-//            login.click();
-//            Time(2);
-//
-//            edit.get(0).sendKeys("15617685965");
+            login.click();
+            Time(2);
+
+//            edit.get(0).sendKeys("15638780663");
 //            login.click();
 //            Time(2);
 //
 //            pass.get(0).sendKeys("12");
 //            login.click();
 //            Time(2);
+//
+//            edit.get(0).sendKeys("15638780663");
+//            pass.get(0).sendKeys("123456");
+//            login.click();
+//            Time(2);
+
 
             edit.get(0).sendKeys("15617685965");
             pass.get(0).sendKeys("123456");
             login.click();
             Time(2);
+
             onHome();
 
         } catch (NoSuchElementException e) {
@@ -121,32 +124,6 @@ public abstract class AppiumTest {
 
     }
 
-    /**
-     * 返回按钮
-     *
-     * @throws InterruptedException
-     */
-    public void back() throws InterruptedException {
-        AndroidElement back = driver.findElementById("back");
-        back.click();
-        Time(2);
-    }
-
-    public void titleBack() throws InterruptedException {
-        AndroidElement back = driver.findElementById("title_back");
-        back.click();
-        Time(2);
-    }
-
-    /**
-     * 进程运行时间间隔
-     *
-     * @param time 秒
-     * @throws InterruptedException
-     */
-    public void Time(int time) throws InterruptedException {
-        driver.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
-    }
 
     /**
      * 所有override此方法的测试,都是从主页开始的
@@ -155,8 +132,4 @@ public abstract class AppiumTest {
     protected abstract void testStart() throws InterruptedException, MalformedURLException;
 
 
-    @After
-    public void tearDown() throws Exception {
-        driver.quit();
-    }
 }
