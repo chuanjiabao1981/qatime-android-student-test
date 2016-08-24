@@ -82,8 +82,8 @@ public abstract class LoginTest extends BaseAppiumTest {
 //            Time(2);
 
 
-            edit.get(0).sendKeys("15617685965");
-            pass.get(0).sendKeys("123456");
+            edit.get(0).sendKeys("15638780663");
+            pass.get(0).sendKeys("111111");
             login.click();
             Time(2);
 

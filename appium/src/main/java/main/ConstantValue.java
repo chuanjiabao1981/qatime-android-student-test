@@ -36,5 +36,5 @@ public class ConstantValue {
     /**
      * token
      */
-    public static String token = "6wBBKGJqAQWJCOw0iZIsRw";
+    public static String token = "V_iGf_XqNzZjKjCOm2hU5Q";
 }
