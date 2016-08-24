@@ -112,12 +112,14 @@ public class MyTutorshipTest extends BaseTest {
 
         driver.swipe(width / 2, height - 100, width / 2, height - 700, 500);
         Time(3);
-//        List<AndroidElement> list = driver.findElementsById("list");
-//        Assert.assertEquals(data.getData().getLessons().size(), list.size());
+        List<AndroidElement> list = driver.findElementsById("list");
+        for (int i = 0; i < list.size(); i++) {
+            Assert.assertEquals(data.getData().getLessons().get(i).getName(), list.get(i).findElementById("name").getText());
+        }
 
-        driver.swipe(width / 2, height - 700, width / 2, height - 100, 500);
+        driver.swipe(width / 2, height - 600, width / 2, height - 100, 500);
         Time(3);
-        driver.swipe(width / 2, height - 700, width / 2, height - 100, 500);
+        driver.swipe(width / 2, height - 600, width / 2, height - 100, 500);
         Time(3);
 
         AndroidElement notice = driver.findElementById("tab_text1");//公告

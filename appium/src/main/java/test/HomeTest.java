@@ -27,11 +27,15 @@ public class HomeTest extends BaseTest {
         Time(3);
         int width = driver.manage().window().getSize().width;
         int height = driver.manage().window().getSize().height;
-        driver.swipe(width / 2, height - 10, width / 2, height / 2, 500);
+        driver.swipe(width / 2, height - 200, width / 2, 300, 500);
+        driver.swipe(width / 2, height - 200, width / 2, 300, 500);
+        driver.swipe(width / 2, height - 200, width / 2, 300, 500);
         Time(3);
+        driver.swipe(width / 2, height - 200, width / 2, 300, 500);
+        Time(5);
         //全部下滑刷新
         whole.get(0).click();//切换至全部页面
-        driver.swipe(width / 2, height - 10, width / 2, height / 2, 500);
+        driver.swipe(width / 2, height - 200, width / 2, 300, 500);
         Time(3);
         lastnews.get(0).click();
 
