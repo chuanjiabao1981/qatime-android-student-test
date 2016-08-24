@@ -1,9 +1,9 @@
 package test;
 
 import org.junit.Test;
-import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -26,40 +26,54 @@ import util.JsonUtils;
 public class RemedialDetailTest extends BaseTest {
 
     private HttpRequest request;
-    private RemedialClassDetailBean.Data bean;
+    private RemedialClassDetailBean.Data data;
 
-    @Test
-    public void testRemedialDetail() throws InterruptedException, MalformedURLException {
-        try {
-            request = new HttpRequest();
-            Time(2);
-            List<AndroidElement> grid = driver.findElementsById("grid");
-            //找到gridview条目中的元素
-            int i = 0;
 
-            String result = request.sendGet("http://testing.qatime.cn/api/v1/live_studio/courses/");
-            RemedialClassBean bean = JsonUtils.objectFromJson(result, RemedialClassBean.class);
 
-            remedialDetailDesc(grid, i, bean.getData().get(i).getId());
-        } catch (NoSuchElementException e) {
-            e.printStackTrace();
-        }
+    /**
+     * 进入详情页
+     *
+     * @param id 进入的条目
+     * @throws InterruptedException
+     * @throws MalformedURLException
+     */
+
+
+    public void toRemedialDetail(int id) throws InterruptedException, MalformedURLException {
+        setUp();
+
+        request = new HttpRequest();
+
+        List<AndroidElement> grid = driver.findElementsById("grid");
+        //找到gridview条目中的元素
+
+        String result1 = request.sendGet("http://testing.qatime.cn/api/v1/live_studio/courses/");
+        RemedialClassBean remedialClassBean = JsonUtils.objectFromJson(result1, RemedialClassBean.class);
+
+        String result2 = request.sendGet("http://testing.qatime.cn/api/v1/live_studio/courses/" + remedialClassBean.getData().get(id).getId());
+        RemedialClassDetailBean remedialClassDetailBean = JsonUtils.objectFromJson(result2, RemedialClassDetailBean.class);
+
+        data = remedialClassDetailBean.getData();
+
+        Time(5);
+        List<MobileElement> images = grid.get(0).findElementsById("image");
+        images.get(id).click();
+        Time(5);
+
     }
 
     /**
      * 判断辅导班详情页的信息显示
      *
-     * @param grid 首页-最新-gridview
-     * @param item item id
-     * @param id   辅导班详情id
      * @throws InterruptedException
      */
-    private void remedialDetailDesc(List<AndroidElement> grid, int item, int id) throws InterruptedException {
+    @Test
+    public void testRemedialDetailDesc() throws InterruptedException, MalformedURLException {
 
-        Time(5);
-        List<MobileElement> images = grid.get(0).findElementsById("image");
-        images.get(item).click();
-        Time(5);
+        int testiId = 0;
+
+        toRemedialDetail(testiId);
+
 //            AndroidElement image = driver.findElementsById("image").get(0);
 
         //辅导班详情页面元素
@@ -71,40 +85,55 @@ public class RemedialDetailTest extends BaseTest {
         AndroidElement student_number = driver.findElementsById("student_number").get(0);
 
         AndroidElement id_stickynavlayout_indicator = driver.findElementsById("id_stickynavlayout_indicator").get(0);
-
         List<MobileElement> textviews = id_stickynavlayout_indicator.findElementsByClassName(ClassName.TextView);
 
 
-        String result = request.sendGet("http://testing.qatime.cn/api/v1/live_studio/courses/" + id);
-
-        RemedialClassDetailBean data = JsonUtils.objectFromJson(result, RemedialClassDetailBean.class);
-        bean = data.getData();
-
-
-        Assert.assertEquals(data.getData().getName(), name.getText());
-        Assert.assertEquals(data.getData().getName(), title.getText());
+        Assert.assertEquals(data.getName(), name.getText());
+        Assert.assertEquals(data.getName(), title.getText());
 
         DecimalFormat df = new DecimalFormat("#.00");
-        String price_str = df.format(data.getData().getPrice());
+        String price_str = df.format(data.getPrice());
         if (price_str.startsWith(".")) {
             price_str = "0" + price_str;
         }
 
 
         Assert.assertEquals("￥" + price_str, price.getText());
-        Assert.assertEquals("报名人数 " + data.getData().getBuy_tickets_count(), student_number.getText());
-        Assert.assertEquals(data.getData().getIs_tasting(), audition.isEnabled());
-        Assert.assertEquals(data.getData().getIs_bought(), pay.isEnabled());
+        Assert.assertEquals("报名人数 " + data.getBuy_tickets_count(), student_number.getText());
+        Assert.assertEquals(data.getIs_tasting(), !audition.isEnabled());
+        Assert.assertEquals(data.getIs_bought(), !pay.isEnabled());
 
 
-        textviews.get(0).click();
-        testIndicator1();
+    }
 
-        textviews.get(1).click();
-        testIndicator2();
 
-        textviews.get(2).click();
-        testIndicator3();
+    private boolean b;
+    /**
+     * 加入试听测试
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    @Test
+    public void testAudition() throws IOException, InterruptedException {
+
+        int testiId = 5;
+
+        toRemedialDetail(testiId);
+
+        AndroidElement audition = driver.findElementsById("audition").get(0);
+        if (audition.isEnabled()) {
+            audition.click();
+            b = audition.isEnabled();
+//            driver.sendKeyEvent();
+
+            AndroidElement back = driver.findElementsByClassName(ClassName.ImageView).get(0);
+            back.click();
+            Time(5);
+
+            testAudition();
+        } else {
+            Assert.assertEquals(b, audition.isEnabled());
+        }
 
     }
 
@@ -114,8 +143,17 @@ public class RemedialDetailTest extends BaseTest {
      * @throws InterruptedException
      */
     @Test
-    public void testIndicator1() throws InterruptedException {
+    public void testIndicator1() throws InterruptedException, MalformedURLException {
+        int testiId = 0;
+
+        toRemedialDetail(testiId);
+
         Time(2);
+
+        AndroidElement id_stickynavlayout_indicator = driver.findElementsById("id_stickynavlayout_indicator").get(0);
+        List<MobileElement> textviews = id_stickynavlayout_indicator.findElementsByClassName(ClassName.TextView);
+        textviews.get(0).click();
+
         AndroidElement describe = driver.findElementsById("describe").get(0);
         AndroidElement classstarttime = driver.findElementsById("class_start_time").get(0);
         AndroidElement subject = driver.findElementsById("subject").get(0);
@@ -126,15 +164,15 @@ public class RemedialDetailTest extends BaseTest {
         AndroidElement totalclass = driver.findElementsById("total_class").get(0);
         AndroidElement remainclass = driver.findElementsById("remain_class").get(0);
 
-        Assert.assertEquals(bean.getDescription(), describe.getText());
-        Assert.assertEquals("开课时间：" + bean.getLive_start_time(), classstarttime.getText());
-        Assert.assertEquals("科目类型：" + bean.getSubject(), subject.getText());
-        Assert.assertEquals("年级类型：" + bean.getGrade(), grade.getText());
-        Assert.assertEquals(getStatus1(bean.getStatus()), status.getText());
-        Assert.assertEquals("结课时间：" + bean.getLive_end_time(), classendtime.getText());
-        Assert.assertEquals("授课教师：" + bean.getTeacher_name(), teacher.getText());
-        Assert.assertEquals("课时总数：" + bean.getPreset_lesson_count(), totalclass.getText());
-        Assert.assertEquals("剩余课时：" + (bean.getPreset_lesson_count() - bean.getCompleted_lesson_count()), remainclass.getText());
+        Assert.assertEquals(data.getDescription(), describe.getText());
+        Assert.assertEquals("开课时间：" + data.getLive_start_time(), classstarttime.getText());
+        Assert.assertEquals("科目类型：" + data.getSubject(), subject.getText());
+        Assert.assertEquals("年级类型：" + data.getGrade(), grade.getText());
+        Assert.assertEquals(getStatus1(data.getStatus()), status.getText());
+        Assert.assertEquals("结课时间：" + data.getLive_end_time(), classendtime.getText());
+        Assert.assertEquals("授课教师：" + data.getTeacher_name(), teacher.getText());
+        Assert.assertEquals("课时总数：" + data.getPreset_lesson_count(), totalclass.getText());
+        Assert.assertEquals("剩余课时：" + (data.getPreset_lesson_count() - data.getCompleted_lesson_count()), remainclass.getText());
     }
 
     /**
@@ -142,17 +180,26 @@ public class RemedialDetailTest extends BaseTest {
      *
      * @throws InterruptedException
      */
-    private void testIndicator2() throws InterruptedException {
+    @Test
+    public void testIndicator2() throws InterruptedException, MalformedURLException {
+        int testiId = 0;
+
+        toRemedialDetail(testiId);
+
+
         Time(2);
+        AndroidElement id_stickynavlayout_indicator = driver.findElementsById("id_stickynavlayout_indicator").get(0);
+        List<MobileElement> textviews = id_stickynavlayout_indicator.findElementsByClassName(ClassName.TextView);
+        textviews.get(1).click();
 
         AndroidElement name = driver.findElementsById("name").get(1);
         AndroidElement teaching_years = driver.findElementsById("teaching_years").get(0);
         AndroidElement subject = driver.findElementsById("subject").get(0);
 
 
-        Assert.assertEquals("老师姓名：" + bean.getTeacher().getName(), name.getText());
-        Assert.assertEquals(getTeacherYears(bean.getTeacher().getTeaching_years()), teaching_years.getText());
-        Assert.assertEquals("所授科目：" + bean.getTeacher().getSubject(), subject.getText());
+        Assert.assertEquals("老师姓名：" + data.getTeacher().getName(), name.getText());
+        Assert.assertEquals(getTeacherYears(data.getTeacher().getTeaching_years()), teaching_years.getText());
+        Assert.assertEquals("所授科目：" + data.getTeacher().getSubject(), subject.getText());
 
     }
 
@@ -161,15 +208,25 @@ public class RemedialDetailTest extends BaseTest {
      *
      * @throws InterruptedException
      */
-    private void testIndicator3() throws InterruptedException {
+    @Test
+    public void testIndicator3() throws InterruptedException, MalformedURLException {
+        int testiId = 0;
+
+        toRemedialDetail(testiId);
+
+
         Time(2);
+        AndroidElement id_stickynavlayout_indicator = driver.findElementsById("id_stickynavlayout_indicator").get(0);
+        List<MobileElement> textviews = id_stickynavlayout_indicator.findElementsByClassName(ClassName.TextView);
+        textviews.get(2).click();
+
         AndroidElement listview = driver.findElementByClassName(ClassName.ListView);
         List<MobileElement> class_date = listview.findElementsById("class_date");
         List<MobileElement> live_time = listview.findElementsById("live_time");
         List<MobileElement> status = listview.findElementsById("status");
         List<MobileElement> name = listview.findElementsById("name");
 
-        List<RemedialClassDetailBean.Lessons> lessons = bean.getLessons();
+        List<RemedialClassDetailBean.Lessons> lessons = data.getLessons();
         RemedialClassDetailBean.Lessons item = lessons.get(lessons.size() - 1);
 
         SimpleDateFormat parse = new SimpleDateFormat("yyyy-MM-dd");
@@ -185,7 +242,6 @@ public class RemedialDetailTest extends BaseTest {
         }
 
     }
-
 
 
     /**
@@ -217,10 +273,10 @@ public class RemedialDetailTest extends BaseTest {
      * @return
      */
     private String getStatus1(String status) {
-        if (bean.getStatus().equals("preview")) {
+        if (status.equals("preview")) {
 
             return "当前状态：招生中";
-        } else if (bean.getStatus().equals("teaching")) {
+        } else if (status.equals("teaching")) {
 
             return "当前状态：已开课";
 

@@ -7,7 +7,7 @@ public class ClassName {
 
     public static String TextView = "android.widget.TextView";
 
-    public static String ImageView = "android.widget.ImageView;";
+    public static String ImageView = "android.widget.ImageView";
 
     public static String EditText = "android.widget.EditText";
 

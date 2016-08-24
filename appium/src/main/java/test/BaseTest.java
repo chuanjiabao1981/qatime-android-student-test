@@ -1,20 +1,13 @@
 package test;
 
 
-import org.junit.Before;
-import org.junit.Test;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
-import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
-import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import main.BaseAppiumTest;
-import main.ConstantValue;
 
 public class BaseTest extends BaseAppiumTest {
 
@@ -87,8 +80,8 @@ public class BaseTest extends BaseAppiumTest {
 //            Time(2);
 
 
-            edit.get(0).sendKeys("15617685965");
-            pass.get(0).sendKeys("123456");
+            edit.get(0).sendKeys("15638780663");
+            pass.get(0).sendKeys("111111");
             login.click();
             Time(2);
             onHome();
