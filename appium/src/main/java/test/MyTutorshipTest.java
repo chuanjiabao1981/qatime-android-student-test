@@ -1,5 +1,6 @@
 package test;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.NoSuchElementException;
 
@@ -7,6 +8,8 @@ import java.util.List;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidElement;
+import model.RemedialClassDetailBean;
+import util.JsonUtils;
 
 /**
  * @author luntify
@@ -64,6 +67,10 @@ public class MyTutorshipTest extends BaseTest {
     private void videoClick() throws InterruptedException, NoSuchElementException {
         AndroidElement videoPlayer = driver.findElementById("video_player");//点击空屏幕
 
+        String result = request.sendGet("http://testing.qatime.cn/api/v1/live_studio/courses/5");
+
+        RemedialClassDetailBean data = JsonUtils.objectFromJson(result, RemedialClassDetailBean.class);
+
         int width = driver.manage().window().getSize().width;
         int height = driver.manage().window().getSize().height;
 
@@ -94,23 +101,34 @@ public class MyTutorshipTest extends BaseTest {
 
         //直播详情测试
         List<AndroidElement> name = driver.findElementsById("name");
-//        Assert.assertEquals("课程名称：", name.get(0).getText());//辅导班名称
+        Assert.assertEquals("课程名称：" + data.getData().getName(), name.get(0).getText());//辅导班名称
         List<AndroidElement> teacher = driver.findElementsById("teacher");
-//        Assert.assertEquals("授课教师：", teacher.get(0).getText());//授课老师
-//        Assert.assertEquals("课程名称：", name.get(1).getText());//教师详情-教师姓名
+        Assert.assertEquals("授课教师：" + data.getData().getTeacher().getName(), teacher.get(0).getText());//授课老师
 
-        List<AndroidElement> list = driver.findElementsById("list");
-//        Assert.assertEquals(0, list.size());
+        driver.swipe(width / 2, height - 100, width / 2, height - 700, 500);
+        Time(3);
+        AndroidElement teacherName = driver.findElementById("name");
+        Assert.assertEquals("老师姓名：" + data.getData().getTeacher().getName(), teacherName.getText());//教师详情-教师姓名
 
-//        AndroidElement notice = driver.findElementById("tab_text1");//公告
-//        notice.click();
-//        Time(3);
-//        AndroidElement chat = driver.findElementById("tab_text2");//聊天
-//        chat.click();
-//        Time(3);
-//        AndroidElement member = driver.findElementById("tab_text4");//成员列表
-//        member.click();
-//        Time(3);
+        driver.swipe(width / 2, height - 100, width / 2, height - 700, 500);
+        Time(3);
+//        List<AndroidElement> list = driver.findElementsById("list");
+//        Assert.assertEquals(data.getData().getLessons().size(), list.size());
+
+        driver.swipe(width / 2, height - 700, width / 2, height - 100, 500);
+        Time(3);
+        driver.swipe(width / 2, height - 700, width / 2, height - 100, 500);
+        Time(3);
+
+        AndroidElement notice = driver.findElementById("tab_text1");//公告
+        notice.click();
+        Time(3);
+        AndroidElement chat = driver.findElementById("tab_text2");//聊天
+        chat.click();
+        Time(3);
+        AndroidElement member = driver.findElementById("tab_text4");//成员列表
+        member.click();
+        Time(3);
     }
 
 

@@ -34,7 +34,7 @@ public class ConstantValue {
      */
     public static String appActivity = "activity.StartActivity";
     /**
-     * token
+     * 获取数据时的token
      */
-    public static String token = "WoVhhatoUlvsw6eY-tNUdA";
+    public static String token = "k_9gcIMa3wHpaS__ZRwN4A";
 }

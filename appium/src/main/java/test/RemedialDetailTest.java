@@ -25,13 +25,11 @@ import util.JsonUtils;
  */
 public class RemedialDetailTest extends BaseTest {
 
-    private HttpRequest request;
     private RemedialClassDetailBean.Data bean;
 
     @Test
     public void testRemedialDetail() throws InterruptedException, MalformedURLException {
         try {
-            request = new HttpRequest();
             Time(2);
             List<AndroidElement> grid = driver.findElementsById("grid");
             //找到gridview条目中的元素
