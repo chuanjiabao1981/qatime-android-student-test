@@ -22,7 +22,7 @@ public abstract class AppiumTest {
     public AppiumDriver<AndroidElement> driver;
 
     /**
-     * <p/>
+     * <p>
      * 每个新建的测试代码都要继承这个基类  就不用每次都写配置代码了
      */
     @Before
@@ -34,7 +34,7 @@ public abstract class AppiumTest {
             capabilities.setCapability("platformVersion", ConstantValue.platformVersion);//手机版本
             capabilities.setCapability("app", app.getAbsolutePath());//获取当前app包的路径
 //            capabilities.setCapability("unicodeKeyboard","True");//实现中文输入
-            capabilities.setCapability("resetKeyboard","True");//输入结束隐藏键盘
+            capabilities.setCapability("resetKeyboard", "True");//输入结束隐藏键盘
             capabilities.setCapability("appPackage", ConstantValue.appPackage);//app包名
             capabilities.setCapability("noSign", "True");//避免重签名
             capabilities.setCapability("StartActivity", ConstantValue.appActivity);//测试起始类，一般都是引导页
@@ -44,7 +44,6 @@ public abstract class AppiumTest {
         }
     }
 
-    @Test
     public void test() throws InterruptedException, MalformedURLException {
         Time(5);
 

@@ -1,5 +1,7 @@
 package test;
 
+import org.junit.Assert;
+import org.junit.Test;
 import org.openqa.selenium.NoSuchElementException;
 
 import java.net.MalformedURLException;
@@ -13,11 +15,51 @@ import main.AppiumTest;
 /**
  * @author luntify
  * @date 2016/8/23 13:26
- * @Description 我的辅导班测试
  */
 public class MyTutorshipTest extends AppiumTest {
     @Override
     protected void testStart() throws InterruptedException, MalformedURLException {
+        //转到fragment4
+//        AndroidElement tab4 = driver.findElementById("tab_text4");
+//        tab4.click();
+//
+//        //已开课
+//        AndroidElement calssed = driver.findElementById("calssed");
+//        calssed.click();
+//        Time(3);
+//        //课程表tab点击
+////        totalship();
+//        //直播
+//
+    }
+
+    /**
+     * 我的辅导班测试QTA-47
+     */
+    @Test
+    public void testMyTutorship() throws Exception {
+        test();
+        //转到fragment4
+        AndroidElement tab4 = driver.findElementById("tab_text4");
+        tab4.click();
+        Time(2);
+
+        //已开课
+        AndroidElement calssed = driver.findElementById("calssed");
+        calssed.click();
+        Time(3);
+        //课程表tab点击
+        totalship();
+    }
+
+    /**
+     * qta-48直播测试
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testNEVideoPlayer() throws Exception {
+        test();
         //转到fragment4
         AndroidElement tab4 = driver.findElementById("tab_text4");
         tab4.click();
@@ -26,9 +68,6 @@ public class MyTutorshipTest extends AppiumTest {
         AndroidElement calssed = driver.findElementById("calssed");
         calssed.click();
         Time(3);
-        //课程表tab点击
-        totalship();
-        //直播
         List<AndroidElement> list = driver.findElementsById("list");
         if (list.size() > 0) {
             list.get(0).findElementById("video").click();
@@ -37,7 +76,7 @@ public class MyTutorshipTest extends AppiumTest {
             try {
                 videoClick();
             } catch (NoSuchElementException e) {
-                driver.quit();
+                System.out.print("error-------------------------------------");
                 e.printStackTrace();
             }
         }
@@ -73,19 +112,26 @@ public class MyTutorshipTest extends AppiumTest {
         livedetails.click();
         Time(15);
 
-        driver.swipe(width / 2, height - 30, width / 2, height -200, 500);
-        Time(20);
 
+        //直播详情测试
+        List<AndroidElement> name = driver.findElementsById("name");
+//        Assert.assertEquals("课程名称：", name.get(0).getText());//辅导班名称
+        List<AndroidElement> teacher = driver.findElementsById("teacher");
+//        Assert.assertEquals("授课教师：", teacher.get(0).getText());//授课老师
+//        Assert.assertEquals("课程名称：", name.get(1).getText());//教师详情-教师姓名
 
-        AndroidElement notice = driver.findElementById("tab_text1");//公告
-        notice.click();
-        Time(3);
-        AndroidElement chat = driver.findElementById("tab_text2");//聊天
-        chat.click();
-        Time(3);
-        AndroidElement member = driver.findElementById("tab_text4");//成员列表
-        member.click();
-        Time(3);
+        List<AndroidElement> list = driver.findElementsById("list");
+//        Assert.assertEquals(0, list.size());
+
+//        AndroidElement notice = driver.findElementById("tab_text1");//公告
+//        notice.click();
+//        Time(3);
+//        AndroidElement chat = driver.findElementById("tab_text2");//聊天
+//        chat.click();
+//        Time(3);
+//        AndroidElement member = driver.findElementById("tab_text4");//成员列表
+//        member.click();
+//        Time(3);
     }
 
 
