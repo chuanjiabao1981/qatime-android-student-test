@@ -2,6 +2,7 @@ package test;
 
 
 import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -15,34 +16,14 @@ import io.appium.java_client.android.AndroidElement;
 import main.BaseAppiumTest;
 import main.ConstantValue;
 
-public abstract class LoginTest extends BaseAppiumTest {
+public class BaseTest extends BaseAppiumTest {
+
     /**
-     * <p>
-     * 每个新建的测试代码都要继承这个基类  就不用每次都写配置代码了
-     * 必须登陆后才能进行其他操作
+     * 登录并转到主页
+     * 若要单独测试登录,需将@Test加上
      */
-    @Before
-    public void testBegin() {
-        try {
-            File app = new File(ConstantValue.appPath, ConstantValue.appName);//apk路径
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("deviceName", ConstantValue.deviceName);//手机机型名
-            capabilities.setCapability("platformVersion", ConstantValue.platformVersion);//手机版本
-            capabilities.setCapability("app", app.getAbsolutePath());//获取当前app包的路径
-//            capabilities.setCapability("unicodeKeyboard","True");//实现中文输入
-            capabilities.setCapability("resetKeyboard", "True");//输入结束隐藏键盘
-            capabilities.setCapability("appPackage", ConstantValue.appPackage);//app包名
-            capabilities.setCapability("noSign", "True");//避免重签名
-            capabilities.setCapability("StartActivity", ConstantValue.appActivity);//测试起始类，一般都是引导页
-            driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);//初始化
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @Override
-    public void test() throws InterruptedException, MalformedURLException {
+//    @Test
+    public void setUp() throws InterruptedException, MalformedURLException {
         Time(5);
         try { //首页测试
             onHome();//用于主页的测试
@@ -57,7 +38,6 @@ public abstract class LoginTest extends BaseAppiumTest {
      */
     public void onHome() throws InterruptedException, NoSuchElementException, MalformedURLException {
         AndroidElement framentLayout = driver.findElementById("fragmentlayout");//此行用于标示是否是主页,不是就throw 异常,由起始页到登录页
-        testStart();//用于到主页后的操作
     }
 
 
@@ -111,9 +91,7 @@ public abstract class LoginTest extends BaseAppiumTest {
             pass.get(0).sendKeys("123456");
             login.click();
             Time(2);
-
             onHome();
-
         } catch (NoSuchElementException e) {
             try {
                 Slide();
@@ -123,13 +101,4 @@ public abstract class LoginTest extends BaseAppiumTest {
         }
 
     }
-
-
-    /**
-     * 所有override此方法的测试,都是从主页开始的
-     * 可在此方法内查找主页的id  进行跳转
-     */
-    protected abstract void testStart() throws InterruptedException, MalformedURLException;
-
-
 }

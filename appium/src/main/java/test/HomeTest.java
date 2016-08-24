@@ -1,5 +1,6 @@
 package test;
 
+import org.junit.Test;
 import org.openqa.selenium.NoSuchElementException;
 
 import java.net.MalformedURLException;
@@ -12,16 +13,13 @@ import io.appium.java_client.android.AndroidElement;
  * @date 2016/8/22 12:20
  * @Description 主页测试   mainactivity
  */
-public class HomeTest extends LoginTest {
-    @Override
-    protected void testStart() throws InterruptedException, MalformedURLException {
-
-    }
-
-    @Override
-    public void onHome() throws InterruptedException, NoSuchElementException, MalformedURLException {
-        super.onHome();
-
+public class HomeTest extends BaseTest {
+    /***
+     * 主页
+     */
+    @Test
+    public void testHome() throws InterruptedException, NoSuchElementException, MalformedURLException {
+        setUp();
         List<AndroidElement> lastnews = driver.findElementsById("tab_text1");//最新
         List<AndroidElement> whole = driver.findElementsById("tab_text2");//全部
 

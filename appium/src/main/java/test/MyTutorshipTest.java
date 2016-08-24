@@ -1,10 +1,8 @@
 package test;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.NoSuchElementException;
 
-import java.net.MalformedURLException;
 import java.util.List;
 
 import io.appium.java_client.MobileElement;
@@ -14,29 +12,14 @@ import io.appium.java_client.android.AndroidElement;
  * @author luntify
  * @date 2016/8/23 13:26
  */
-public class MyTutorshipTest extends LoginTest {
-    @Override
-    protected void testStart() throws InterruptedException, MalformedURLException {
-        //转到fragment4
-//        AndroidElement tab4 = driver.findElementById("tab_text4");
-//        tab4.click();
-//
-//        //已开课
-//        AndroidElement calssed = driver.findElementById("calssed");
-//        calssed.click();
-//        Time(3);
-//        //课程表tab点击
-////        totalship();
-//        //直播
-//
-    }
+public class MyTutorshipTest extends BaseTest {
 
     /**
-     * 我的辅导班测试QTA-47
+     * QTA-47我的辅导班测试
      */
     @Test
     public void testMyTutorship() throws Exception {
-        test();
+        setUp();
         //转到fragment4
         AndroidElement tab4 = driver.findElementById("tab_text4");
         tab4.click();
@@ -55,7 +38,7 @@ public class MyTutorshipTest extends LoginTest {
      */
     @Test
     public void testNEVideoPlayer() throws Exception {
-        test();
+        setUp();
         //转到fragment4
         AndroidElement tab4 = driver.findElementById("tab_text4");
         tab4.click();

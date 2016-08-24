@@ -1,12 +1,8 @@
 package main;
 
-import com.android.volley.toolbox.Volley;
-
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
@@ -25,8 +21,6 @@ import io.appium.java_client.android.AndroidElement;
  */
 public class BaseAppiumTest {
     public AppiumDriver<AndroidElement> driver;
-
-
     @Before
     public void testBegin() {
         try {
@@ -36,7 +30,7 @@ public class BaseAppiumTest {
             capabilities.setCapability("platformVersion", ConstantValue.platformVersion);//手机版本
             capabilities.setCapability("app", app.getAbsolutePath());//获取当前app包的路径
 //            capabilities.setCapability("unicodeKeyboard","True");//实现中文输入
-            capabilities.setCapability("resetKeyboard","True");//输入结束隐藏键盘
+            capabilities.setCapability("resetKeyboard", "True");//输入结束隐藏键盘
             capabilities.setCapability("appPackage", ConstantValue.appPackage);//app包名
             capabilities.setCapability("noSign", "True");//避免重签名
             capabilities.setCapability("StartActivity", ConstantValue.appActivity);//测试起始类，一般都是引导页
@@ -44,11 +38,6 @@ public class BaseAppiumTest {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-    }
-
-    @Test
-    public void test() throws InterruptedException, MalformedURLException {
-
     }
 
 
