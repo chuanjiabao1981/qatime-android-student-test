@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import util.HttpRequest;
 
 /**
  * @author luntify
@@ -20,6 +21,8 @@ import io.appium.java_client.android.AndroidElement;
  */
 public class BaseAppiumTest {
     public AppiumDriver<AndroidElement> driver;
+    protected HttpRequest request = new HttpRequest();
+
     @Before
     public void testBegin() {
         try {
