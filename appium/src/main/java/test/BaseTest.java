@@ -8,6 +8,7 @@ import java.util.List;
 
 import io.appium.java_client.android.AndroidElement;
 import main.BaseAppiumTest;
+import main.ConstantValue;
 
 public class BaseTest extends BaseAppiumTest {
 
@@ -80,8 +81,8 @@ public class BaseTest extends BaseAppiumTest {
 //            Time(2);
 
 
-            edit.get(0).sendKeys("15638780663");
-            pass.get(0).sendKeys("111111");
+            edit.get(0).sendKeys(ConstantValue.phone);
+            pass.get(0).sendKeys(ConstantValue.password);
             login.click();
             Time(2);
             onHome();

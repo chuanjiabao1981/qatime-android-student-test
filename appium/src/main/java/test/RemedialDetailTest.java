@@ -29,7 +29,6 @@ public class RemedialDetailTest extends BaseTest {
     private RemedialClassDetailBean.Data data;
 
 
-
     /**
      * 进入详情页
      *
@@ -73,7 +72,10 @@ public class RemedialDetailTest extends BaseTest {
         int testiId = 0;
 
         toRemedialDetail(testiId);
-
+        int width = driver.manage().window().getSize().width;
+        int height = driver.manage().window().getSize().height;
+        driver.swipe(width / 2, height - 100, width / 2, height - 800, 500);
+        driver.swipe(width / 2, height - 800, width / 2, height - 100, 500);
 //            AndroidElement image = driver.findElementsById("image").get(0);
 
         //辅导班详情页面元素
@@ -107,32 +109,36 @@ public class RemedialDetailTest extends BaseTest {
     }
 
 
-    private boolean b;
+
     /**
      * 加入试听测试
+     *
      * @throws IOException
      * @throws InterruptedException
      */
     @Test
     public void testAudition() throws IOException, InterruptedException {
-
         int testiId = 5;
 
         toRemedialDetail(testiId);
 
+
         AndroidElement audition = driver.findElementsById("audition").get(0);
+        Assert.assertEquals(data.getIs_tasting(), !audition.isEnabled());
+
         if (audition.isEnabled()) {
+            boolean b = audition.isEnabled();
+            System.out.println(b);
             audition.click();
-            b = audition.isEnabled();
 //            driver.sendKeyEvent();
+            Time(5);
+
+//            testAudition();
+            Assert.assertEquals(audition.isEnabled(), !b);
 
             AndroidElement back = driver.findElementsByClassName(ClassName.ImageView).get(0);
             back.click();
-            Time(5);
-
             testAudition();
-        } else {
-            Assert.assertEquals(b, audition.isEnabled());
         }
 
     }
