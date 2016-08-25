@@ -8,7 +8,9 @@ import java.util.List;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidElement;
+import main.ConstantValue;
 import model.RemedialClassDetailBean;
+import model.TutorialClassBean;
 import util.JsonUtils;
 
 /**
@@ -23,6 +25,9 @@ public class MyTutorshipTest extends BaseTest {
     @Test
     public void testMyTutorship() throws Exception {
         setUp();
+        String result = request.sendGet("http://testing.qatime.cn/api/v1/live_studio/students/" + ConstantValue.userId + "/courses?status=teaching&page=1&per_page=10");
+        TutorialClassBean data = JsonUtils.objectFromJson(result, TutorialClassBean.class);
+
         //转到fragment4
         AndroidElement tab4 = driver.findElementById("tab_text4");
         tab4.click();
@@ -31,6 +36,18 @@ public class MyTutorshipTest extends BaseTest {
         //已开课
         AndroidElement calssed = driver.findElementById("calssed");
         calssed.click();
+        List<AndroidElement> list = driver.findElementsById("list");
+
+        if (list.size() > 0 && data.getData().size() > 0) {
+            Assert.assertEquals("开课" + data.getData().get(0).getLive_start_time(), list.get(0).findElementById("class_start_time").getText());
+            Assert.assertEquals("结课" + data.getData().get(0).getLive_end_time(), list.get(0).findElementById("class_end_time").getText());
+            Assert.assertEquals(data.getData().get(0).getName(), list.get(0).findElementById("name").getText());
+            Assert.assertEquals("科目：" + data.getData().get(0).getSubject(), list.get(0).findElementById("subject").getText());
+            Assert.assertEquals("老师：" + data.getData().get(0).getTeacher_name(), list.get(0).findElementById("teacher").getText());
+            Assert.assertEquals(data.getData().get(0).getCompleted_lesson_count() + "/" + data.getData().get(0).getPreset_lesson_count(), list.get(0).findElementById("progress").getText());
+            Assert.assertEquals(String.valueOf(data.getData().get(0).getPreset_lesson_count() - data.getData().get(0).getCompleted_lesson_count()), list.get(0).findElementById("remain_class").getText());
+            Assert.assertEquals("下一课" + data.getData().get(0).getPreview_time(), list.get(0).findElementById("teaching_time").getText());
+        }
         Time(3);
         //课程表tab点击
         totalship();

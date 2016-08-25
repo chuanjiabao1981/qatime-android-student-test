@@ -1,6 +1,7 @@
 package test;
 
 
+import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
 
 import java.net.MalformedURLException;
@@ -62,8 +63,14 @@ public class BaseTest extends BaseAppiumTest {
             Time(5);
             List<AndroidElement> edit = driver.findElementsById("name");
             List<AndroidElement> pass = driver.findElementsById("pass");
+
             //登陆按钮
             AndroidElement login = driver.findElementById("login");
+            AndroidElement register = driver.findElementById("register");
+            AndroidElement login_error = driver.findElementById("login_error");
+            Assert.assertEquals("登录", login.getText());
+            Assert.assertEquals("注册", register.getText());
+            Assert.assertEquals("忘记密码", login_error.getText());
             login.click();
             Time(2);
 
@@ -87,6 +94,8 @@ public class BaseTest extends BaseAppiumTest {
             Time(2);
             onHome();
         } catch (NoSuchElementException e) {
+//            e.printStackTrace();
+            System.out.println("roll to slide");
             try {
                 Slide();
             } catch (MalformedURLException ex) {

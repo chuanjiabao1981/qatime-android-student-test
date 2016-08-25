@@ -15,7 +15,6 @@ import io.appium.java_client.android.AndroidElement;
 import main.ClassName;
 import model.RemedialClassBean;
 import model.RemedialClassDetailBean;
-import util.HttpRequest;
 import util.JsonUtils;
 
 /**
@@ -25,9 +24,8 @@ import util.JsonUtils;
  */
 public class RemedialDetailTest extends BaseTest {
 
-    private HttpRequest request;
     private RemedialClassDetailBean.Data data;
-
+    DecimalFormat df = new DecimalFormat("#.00");
 
     /**
      * 进入详情页
@@ -41,7 +39,6 @@ public class RemedialDetailTest extends BaseTest {
     public void toRemedialDetail(int id) throws InterruptedException, MalformedURLException {
         setUp();
 
-        request = new HttpRequest();
 
         List<AndroidElement> grid = driver.findElementsById("grid");
         //找到gridview条目中的元素
@@ -99,15 +96,11 @@ public class RemedialDetailTest extends BaseTest {
             price_str = "0" + price_str;
         }
 
-
         Assert.assertEquals("￥" + price_str, price.getText());
         Assert.assertEquals("报名人数 " + data.getBuy_tickets_count(), student_number.getText());
         Assert.assertEquals(data.getIs_tasting(), !audition.isEnabled());
         Assert.assertEquals(data.getIs_bought(), !pay.isEnabled());
-
-
     }
-
 
 
     /**
@@ -249,6 +242,53 @@ public class RemedialDetailTest extends BaseTest {
 
     }
 
+    /**
+     * 购买测试
+     */
+    @Test
+    public void testPay() throws MalformedURLException, InterruptedException {
+        toRemedialDetail(3);
+        AndroidElement pay = driver.findElementById("pay");
+        Assert.assertEquals(data.getIs_bought(), !pay.isEnabled());
+
+        if (pay.isEnabled()) {
+            Time(2);
+            pay.click();
+            Time(3);
+
+            AndroidElement name = driver.findElementById("name");
+            AndroidElement project = driver.findElementById("project");
+            AndroidElement grade = driver.findElementById("grade");
+            AndroidElement classnumber = driver.findElementById("class_number");
+            AndroidElement teacher = driver.findElementById("teacher");
+            AndroidElement payprice = driver.findElementById("pay_price");
+
+            Assert.assertEquals(data.getName(), name.getText());
+            Assert.assertEquals("科目类型：" + data.getSubject(), project.getText());
+            Assert.assertEquals("年级类型：" + data.getGrade(), grade.getText());
+            Assert.assertEquals("课时总数：" + String.valueOf(data.getPreset_lesson_count()), classnumber.getText());
+            Assert.assertEquals("授课教师：" + data.getTeacher_name(), teacher.getText());
+
+            String price = df.format(data.getPrice());
+            if (price.startsWith(".")) {
+                price = "0" + price;
+            }
+            Assert.assertEquals(" " + price + " ", payprice.getText());
+
+            AndroidElement alipay = driver.findElementById("alipay");
+            alipay.click();
+
+            Time(2);
+
+            AndroidElement orderPay = driver.findElementById("pay");
+            orderPay.click();
+            Time(15);
+
+            AndroidElement orderPrice = driver.findElementById("price");
+            Assert.assertEquals("应付金额：￥" + price, orderPrice.getText());
+
+        }
+    }
 
     /**
      * 直播状态
