@@ -282,8 +282,8 @@ public class RemedialDetailTest extends BaseTest {
 
             AndroidElement orderPay = driver.findElementById("pay");
             orderPay.click();
-            Time(15);
 
+            Time(15);
             AndroidElement orderPrice = driver.findElementById("price");
             Assert.assertEquals("应付金额：￥" + price, orderPrice.getText());
 
