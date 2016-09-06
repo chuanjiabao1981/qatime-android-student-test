@@ -9,7 +9,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import util.HttpRequest;
@@ -20,7 +19,7 @@ import util.HttpRequest;
  * @Description
  */
 public class BaseAppiumTest {
-    public AppiumDriver<AndroidElement> driver;
+    public AndroidDriver<AndroidElement> driver;
     protected HttpRequest request = new HttpRequest();
 
     @Before
