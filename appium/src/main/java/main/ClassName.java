@@ -18,4 +18,6 @@ public class ClassName {
     public static String RelativeLayout = "android.widget.RelativeLayout";
 
     public static String GridView = "android.widget.GridView";
+
+    public static String LinearLayout = "android.widget.LinearLayout";
 }
