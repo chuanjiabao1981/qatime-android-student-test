@@ -153,18 +153,23 @@ public class MyTutorshipTest extends BaseTest {
 
     public void totalship() throws InterruptedException {
         AndroidElement tabText1 = driver.findElementById("tab_text1");
+        Assert.assertTrue(tabText1.isDisplayed());
         tabText1.click();
         Time(3);
         AndroidElement tabText2 = driver.findElementById("tab_text2");
+        Assert.assertTrue(tabText2.isDisplayed());
         tabText2.click();
         Time(3);
         AndroidElement tabText5 = driver.findElementById("tab_text5");
+        Assert.assertTrue(tabText5.isDisplayed());
         tabText5.click();
         Time(3);
         AndroidElement tabText4 = driver.findElementById("tab_text4");
+        Assert.assertTrue(tabText4.isDisplayed());
         tabText4.click();
         Time(3);
         AndroidElement tabText3 = driver.findElementById("tab_text3");
+        Assert.assertTrue(tabText3.isDisplayed());
         tabText3.click();
         Time(3);
     }

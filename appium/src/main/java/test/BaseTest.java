@@ -72,9 +72,9 @@ public class BaseTest extends BaseAppiumTest {
             AndroidElement login = driver.findElementById("login");
             AndroidElement register = driver.findElementById("register");
             AndroidElement login_error = driver.findElementById("login_error");
-            Assert.assertEquals("登录", login.getText());
-            Assert.assertEquals("注册", register.getText());
-            Assert.assertEquals("忘记密码", login_error.getText());
+            Assert.assertTrue(login.isDisplayed());
+            Assert.assertTrue(register.isDisplayed());
+            Assert.assertTrue( login_error.isDisplayed());
             login.click();
             Time(2);
 
