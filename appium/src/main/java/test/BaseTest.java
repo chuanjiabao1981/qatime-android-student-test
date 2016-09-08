@@ -2,6 +2,7 @@ package test;
 
 
 import org.junit.Assert;
+import org.openqa.jetty.util.StringUtil;
 import org.openqa.selenium.NoSuchElementException;
 
 import java.net.MalformedURLException;
@@ -10,6 +11,7 @@ import java.util.List;
 import io.appium.java_client.android.AndroidElement;
 import main.BaseAppiumTest;
 import main.ConstantValue;
+import util.StringUtils;
 
 public class BaseTest extends BaseAppiumTest {
 
@@ -19,7 +21,7 @@ public class BaseTest extends BaseAppiumTest {
      */
 //    @Test
     public void setUp() throws InterruptedException, MalformedURLException {
-        Time(5);
+        Time(3);
         try { //首页测试
             onHome();//用于主页的测试
         } catch (NoSuchElementException e) {
@@ -43,6 +45,8 @@ public class BaseTest extends BaseAppiumTest {
         //引导页滑动设置
         try {
             int width = driver.manage().window().getSize().width;
+            driver.swipe(width - 100, 100, width / 2, 100, 200);
+            Time(1);
             driver.swipe(width - 100, 100, width / 2, 100, 200);
             Time(1);
             //到登录页
@@ -103,5 +107,13 @@ public class BaseTest extends BaseAppiumTest {
             }
         }
 
+    }
+
+    public void println(Object object) {
+        if (StringUtils.isNullOrBlanK(object)) {
+            System.out.println("测试完成");
+            return;
+        }
+        System.out.println(object);
     }
 }
