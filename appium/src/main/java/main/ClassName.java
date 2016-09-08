@@ -14,4 +14,8 @@ public class ClassName {
     public static String Button = "android.widget.Button";
 
     public static String ListView = "android.widget.ListView";
+
+    public static String RelativeLayout = "android.widget.RelativeLayout";
+
+    public static String GridView = "android.widget.GridView";
 }
