@@ -7,7 +7,7 @@ public class ConstantValue {
     /**
      * app所在目录
      */
-    public static String appPath = "C:\\Users\\lenovo\\qatime-android-student\\app\\build\\outputs\\apk";
+    public static String appPath = "C:\\use\\workplace\\qatime-android-student\\app\\build\\outputs\\apk";
 
     /**
      * app文件名
@@ -17,12 +17,12 @@ public class ConstantValue {
     /**
      * 设备名称
      */
-    public static String deviceName = "Meizu M2 Note";
+    public static String deviceName = "HUAWEI KNT-UL10";
 
     /**
      * 版本号
      */
-    public static String platformVersion = "5.1";
+    public static String platformVersion = "6.0";
 
     /**
      * app包名
@@ -36,18 +36,18 @@ public class ConstantValue {
     /**
      * 获取数据时的token
      */
-    public static String token = "bN0K7cbAMKkDukRmQku7dw";
+    public static String token = "daqdfax2wXHShEQYFOblpw";
 
     /**
      * 测试账号
      */
-    public static String phone = "13426387741";
+    public static String phone = "15617685965";
     /**
      * 测试密码
      */
-    public static String password ="111111";
+    public static String password ="123456";
     /**
      * 学生id
      */
-    public static String userId = "2323";
+    public static String userId = "2285";
 }
