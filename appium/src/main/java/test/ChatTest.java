@@ -55,10 +55,32 @@ public class ChatTest extends BaseTest {
 
         Assert.assertTrue(three.size() > second.size());
 
+        println("聊天测试完成");
     }
 
     private void setMessage(List<AndroidElement> content, String str) {
         content.get(0).sendKeys(str);
         Assert.assertEquals(str, content.get(0).getText());
+    }
+
+    /**
+     * QTA-32消息记录
+     */
+    @Test
+    public void testMessageRecord() throws MalformedURLException, InterruptedException {
+        toMessagePage();
+
+        Assert.assertEquals(".activity.MessageActivity", driver.currentActivity());
+        int width = driver.manage().window().getSize().width;
+        int height = driver.manage().window().getSize().height;
+        List<AndroidElement> first = driver.findElementsById("right");
+
+        driver.swipe(width / 2, 300, width / 2, height - 200, 500);
+        Time(1);
+        driver.swipe(width / 2, 300, width / 2, height - 200, 500);
+        Time(3);
+        List<AndroidElement> second = driver.findElementsById("right");
+        Assert.assertTrue(second.size() >= first.size());
+        println("消息记录测试完成");
     }
 }
