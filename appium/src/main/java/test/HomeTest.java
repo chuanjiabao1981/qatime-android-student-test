@@ -8,7 +8,9 @@ import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidElement;
+import main.ClassName;
 import model.RemedialClassBean;
 import util.JsonUtils;
 import util.StringUtils;
@@ -33,6 +35,7 @@ public class HomeTest extends BaseTest {
         List<AndroidElement> whole = driver.findElementsById("tab_text2");//全部
         List<AndroidElement> grid = driver.findElementsById("grid");//列表
 
+        List<MobileElement> itemSize = grid.get(0).findElementsByClassName(ClassName.ImageView);
         Time(4);
         Assert.assertEquals("最新", lastnews.get(0).getText());
         Assert.assertEquals("全部", whole.get(0).getText());
@@ -56,6 +59,11 @@ public class HomeTest extends BaseTest {
         driver.swipe(width / 2, height - 200, width / 2, 300, 500);
         driver.swipe(width / 2, height - 200, width / 2, 300, 500);
         driver.swipe(width / 2, height - 200, width / 2, 300, 500);
+
+        Time(5);
+        List<MobileElement> itemNewSize = grid.get(0).findElementsByClassName(ClassName.ImageView);
+        Assert.assertTrue(itemNewSize.size() >= itemSize.size());
+
         Time(3);
         driver.swipe(width / 2, height - 200, width / 2, 300, 500);
         Time(5);
