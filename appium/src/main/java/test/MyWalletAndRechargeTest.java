@@ -131,12 +131,12 @@ public class MyWalletAndRechargeTest extends BaseTest {
      * @throws InterruptedException
      */
     @Test
-    public void testReCordFund() throws MalformedURLException, InterruptedException {
+    public void testRechargeRecordFund() throws MalformedURLException, InterruptedException {
         testMyWallet();
         AndroidElement recharge_record = driver.findElementById("cn.qatime.player:id/recharge_record");//充值记录
         recharge_record.click();
         Time(2);
-        String result = HttpRequest.sendGet("http://testing.qatime.cn/api/v1/payment/users/" + ConstantValue.userId + "/recharges?page=1&end_date=14752150462350&start_date=0");
+        String result = HttpRequest.sendGet("http://testing.qatime.cn/api/v1/payment/users/" + ConstantValue.userId + "/recharges?page=1");
         RechargeRecodBean bean = JsonUtils.objectFromJson(result, RechargeRecodBean.class);
         AndroidElement list = driver.findElementById("android:id/list");//list
 
@@ -169,12 +169,11 @@ public class MyWalletAndRechargeTest extends BaseTest {
         switch (status) {
             case "unpaid":
                 return "未支付";
-            case "alipay":
-                return "已支付";
-            case "canceled":
-                return "订单取消";
+            case "received":
+                return "充值成功";
+            default:
+                return "交易关闭";
         }
-        return "未支付";
     }
 
     private String getPayType(String pay_type) {
@@ -186,6 +185,7 @@ public class MyWalletAndRechargeTest extends BaseTest {
             case "offline":
                 return "线下支付";
         }
-        return "未支付";
+        return "微信支付";
     }
+
 }
