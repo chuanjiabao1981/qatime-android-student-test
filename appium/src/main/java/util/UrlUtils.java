@@ -35,6 +35,7 @@ public class UrlUtils {
     public static String urlUser = baseUrl + "api/v1/users/";
     //用户信息
     public static String urlfindPassword = baseUrl + "api/v1/password";
+    public static String urlPayment = baseUrl +"api/v1/payment/users/";
 
     public static String getUrl(String function, Map<String, String> params) {
         String url;
