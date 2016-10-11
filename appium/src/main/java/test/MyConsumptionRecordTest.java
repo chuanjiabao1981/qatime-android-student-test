@@ -20,7 +20,7 @@ import util.JsonUtils;
  */
 public class MyConsumptionRecordTest extends MyWalletAndRechargeTest {
     /**
-     * QTA-52  充值记录
+     * QTA-53  消费记录测试
      *
      * @throws MalformedURLException
      * @throws InterruptedException
