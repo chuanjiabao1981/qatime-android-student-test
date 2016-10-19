@@ -8,6 +8,9 @@ import java.util.List;
 
 import io.appium.java_client.android.AndroidElement;
 import main.ClassName;
+import main.ConstantValue;
+import model.SystemNotifyBean;
+import util.JsonUtils;
 
 /**
  * @author lungtify
@@ -82,5 +85,33 @@ public class ChatTest extends BaseTest {
         List<AndroidElement> second = driver.findElementsById("right");
         Assert.assertTrue(second.size() >= first.size());
         println("消息记录测试完成");
+    }
+
+    /**
+     * QTA-22 系统消息测试
+     * @throws InterruptedException
+     * @throws MalformedURLException
+     */
+    @Test
+    public void testSystemNotify() throws InterruptedException, MalformedURLException {
+        setUp();
+
+        String result = request.sendGet("http://testing.qatime.cn/api/v1/users/" + ConstantValue.userId + "/notifications?user_id=" + ConstantValue.userId + "&page=1");
+        SystemNotifyBean data = JsonUtils.objectFromJson(result, SystemNotifyBean.class);
+        //转到fragment3
+        AndroidElement tab3 = driver.findElementById("tab_text3");
+        tab3.click();
+        Time(2);
+        AndroidElement tab2 = driver.findElementById("tab_text2");
+        tab2.click();
+        Time(2);
+
+        List<AndroidElement> items = driver.findElementsById("date_time");
+        List<AndroidElement> details = driver.findElementsById("details");
+        for (int i=0;i<items.size();i++){
+            Assert.assertEquals(data.getData().get(i).getCreated_at(),items.get(i).getText());
+            Assert.assertEquals(data.getData().get(i).getNotice_content(),details.get(i).getText());
+        }
+        println("系统消息测试完成");
     }
 }
