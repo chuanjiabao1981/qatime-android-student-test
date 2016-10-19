@@ -87,6 +87,11 @@ public class ChatTest extends BaseTest {
         println("消息记录测试完成");
     }
 
+    /**
+     * QTA-22 系统消息测试
+     * @throws InterruptedException
+     * @throws MalformedURLException
+     */
     @Test
     public void testSystemNotify() throws InterruptedException, MalformedURLException {
         setUp();
