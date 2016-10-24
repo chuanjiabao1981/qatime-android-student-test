@@ -36,7 +36,7 @@ public class ConstantValue {
     /**
      * 获取数据时的token
      */
-    public static String token = "YAHRiuaskzS0DNugKHsfTA";
+    public static String token = "GvI8gY18ig0Pk2g7SLTtYg";
 
     /**
      * 测试账号
@@ -49,5 +49,5 @@ public class ConstantValue {
     /**
      * 学生id
      */
-    public static String userId = "280";
+    public static String userId = "2878";
 }
