@@ -192,7 +192,7 @@ public class HttpRequest {
         return con;
     }
 
-    public String yourmethod(String url, String type, String reqbody) {
+    public static String yourmethod(String url, String type, String reqbody) {
         HttpURLConnection con = null;
         String result = null;
         try {
