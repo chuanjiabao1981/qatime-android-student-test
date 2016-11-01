@@ -1,19 +1,16 @@
 package test;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.NoSuchElementException;
+import org.testng.Assert;
 
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
-import java.util.List;
 
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidElement;
-import main.ClassName;
-import model.RemedialClassBean;
+import model.ClassRecommendBean;
+import model.TeacherRecommendBean;
 import util.JsonUtils;
-import util.StringUtils;
 
 /**
  * @author luntify
@@ -29,49 +26,78 @@ public class HomeTest extends BaseTest {
     @Test
     public void testHome() throws InterruptedException, NoSuchElementException, MalformedURLException {
         setUp();
-        String result = request.sendGet("http://testing.qatime.cn/api/v1/live_studio/courses?page=1&per_page=10");
-        RemedialClassBean data = JsonUtils.objectFromJson(result, RemedialClassBean.class);
-        List<AndroidElement> lastnews = driver.findElementsById("tab_text1");//最新
-        List<AndroidElement> whole = driver.findElementsById("tab_text2");//全部
-        List<AndroidElement> grid = driver.findElementsById("grid");//列表
+        String teacherResult = request.sendGet("http://testing.qatime.cn/api/v1/recommend/positions/" + "index_teacher_recommend" + "/items");
+        TeacherRecommendBean teacherData = JsonUtils.objectFromJson(teacherResult, TeacherRecommendBean.class);
+        String classResult = request.sendGet("http://testing.qatime.cn/api/v1/recommend/positions/" + "index_live_studio_course_recommend" + "/items");
+        ClassRecommendBean classData = JsonUtils.objectFromJson(classResult, ClassRecommendBean.class);
+        ClassRecommendBean.DataBean.LiveStudioCourseBean course = classData.getData().get(0).getLive_studio_course();
 
-        List<MobileElement> itemSize = grid.get(0).findElementsByClassName(ClassName.ImageView);
-        Time(4);
-        Assert.assertEquals("最新", lastnews.get(0).getText());
-        Assert.assertEquals("全部", whole.get(0).getText());
-        for (int i = 0; i < grid.size(); i++) {
-            Assert.assertEquals(StringUtils.isNullOrBlanK(data.getData().get(i).getName()) ? "高级辅导班" : data.getData().get(i).getName(), grid.get(i).findElementById("name").getText());
-            Assert.assertEquals(StringUtils.isNullOrBlanK(data.getData().get(i).getSubject()) ? "科目" : data.getData().get(i).getSubject(), grid.get(i).findElementById("subject").getText());
-            Assert.assertEquals(StringUtils.isNullOrBlanK(data.getData().get(i).getGrade()) ? "年级" : data.getData().get(i).getGrade(), grid.get(i).findElementById("grade").getText());
-            Assert.assertEquals(StringUtils.isNullOrBlanK(data.getData().get(i).getTeacher_name()) ? "老师" : data.getData().get(i).getTeacher_name(), grid.get(i).findElementById("teacher").getText());
-            String price = df.format(data.getData().get(i).getPrice());
-            if (price.startsWith(".")) {
-                price = "0" + price;
-            }
-            Assert.assertEquals(StringUtils.isNullOrBlanK(data.getData().get(i).getPrice()) ? "价格" : "￥" + price, grid.get(i).findElementById("price").getText());
-            Assert.assertEquals(StringUtils.isNullOrBlanK(String.valueOf(data.getData().get(i).getBuy_tickets_count())) ? "人数" : String.valueOf(data.getData().get(i).getBuy_tickets_count()), grid.get(i).findElementById("student_number").getText());
-        }
-
-        //最新下滑刷新
-        Time(3);
         int width = driver.manage().window().getSize().width;
         int height = driver.manage().window().getSize().height;
         driver.swipe(width / 2, height - 200, width / 2, 300, 500);
-        driver.swipe(width / 2, height - 200, width / 2, 300, 500);
-        driver.swipe(width / 2, height - 200, width / 2, 300, 500);
-
-        Time(5);
-        List<MobileElement> itemNewSize = grid.get(0).findElementsByClassName(ClassName.ImageView);
-        Assert.assertTrue(itemNewSize.size() >= itemSize.size());
 
         Time(3);
-        driver.swipe(width / 2, height - 200, width / 2, 300, 500);
-        Time(5);
-        //全部下滑刷新
-        whole.get(0).click();//切换至全部页面
-        driver.swipe(width / 2, height - 200, width / 2, 300, 500);
+        AndroidElement name = driver.findElementById("cn.qatime.player:id/teacher_text");
+        AndroidElement title = driver.findElementById("cn.qatime.player:id/course_title");
+        AndroidElement subject = driver.findElementById("cn.qatime.player:id/subject");
+        AndroidElement count = driver.findElementById("cn.qatime.player:id/count");
+
+
+        Assert.assertEquals(name.getText(), teacherData.getData().get(0).getTeacher().getName());
+        Assert.assertEquals(subject.getText(), course.getSubject());
+        Assert.assertEquals(title.getText(), course.getName());
+        Assert.assertEquals(count.getText(), course.getBuy_tickets_count() + "人已购");
+
+        title.click();
+        Time(2);
+        //点击跳转辅导班详情
+        String currentActivity = driver.currentActivity();
+        Assert.assertEquals(currentActivity, ".activity.RemedialClassDetailActivity");
+
+        //点击跳转辅教师公开页
+        back();
+        Time(2);
+        name.click();
+        Time(2);
+        currentActivity = driver.currentActivity();
+        Assert.assertEquals(currentActivity, ".activity.TeacherDataActivity");
+
+        back();
+        Time(2);
+        driver.swipe(width / 2,300, width / 2,  height - 200, 500);
         Time(3);
-        lastnews.get(0).click();
+        AndroidElement refreshTeacher = driver.findElementById("cn.qatime.player:id/refresh_teacher");
+        refreshTeacher.click();
+        Time(2);
+        //刷新后数据不相同
+        Assert.assertNotEquals(name.getText(), teacherData.getData().get(0).getTeacher().getName());
+        //点击全部跳转
+        AndroidElement allClass = driver.findElementById("cn.qatime.player:id/all_class");
+        allClass.click();
+        Time(2);
+        //辅导班筛选全部
+        AndroidElement subjectText = driver.findElementById("cn.qatime.player:id/subject_text");
+        Assert.assertEquals(subjectText.getText(), "全部");
+        //返回首页
+        AndroidElement tab = driver.findElementById("cn.qatime.player:id/tab_text1");
+        tab.click();
+        Time(2);
+        //点击科目跳转
+        AndroidElement homeSubject = driver.findElementById("cn.qatime.player:id/subject_text");
+        homeSubject.click();
+        Time(2);
+        //辅导班筛选科目
+        subjectText = driver.findElementById("cn.qatime.player:id/subject_text");
+        Assert.assertEquals(subjectText.getText(), homeSubject.getText());
         System.out.println("首页测试完成");
+    }
+
+    private String getReason(String reason) {
+        if ("latest".equals(reason)) {
+            return "最新";
+        } else if ("hottest".equals(reason)) {
+            return "最热";
+        }
+        return "";
     }
 }

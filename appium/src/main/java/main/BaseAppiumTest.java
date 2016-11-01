@@ -48,7 +48,7 @@ public class BaseAppiumTest {
      * @throws InterruptedException
      */
     public void back() throws InterruptedException {
-        AndroidElement back = driver.findElementById("back");
+        AndroidElement back = driver.findElementsByClassName(ClassName.ImageView).get(0);
         back.click();
         Time(2);
     }
