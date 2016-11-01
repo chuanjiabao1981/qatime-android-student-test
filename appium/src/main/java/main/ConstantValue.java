@@ -36,16 +36,16 @@ public class ConstantValue {
     /**
      * 获取数据时的token
      */
-    public static String token = "GvI8gY18ig0Pk2g7SLTtYg";
+    public static String token = "PhUJzPAHRzzpc2MPL8OJIA";
 
     /**
      * 测试账号
      */
-    public static String phone = "tian@qatime.cn";
+    public static String phone = "15638780663";
     /**
      * 测试密码
      */
-    public static String password ="tain123";
+    public static String password ="111111";
     /**
      * 学生id
      */
