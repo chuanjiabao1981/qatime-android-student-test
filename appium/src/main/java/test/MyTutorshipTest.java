@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.NoSuchElementException;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 import io.appium.java_client.MobileElement;
@@ -81,8 +82,28 @@ public class MyTutorshipTest extends BaseTest {
         }
     }
 
+    /**
+     * QTA-73 播放器双直播
+     */
+    @Test
+    public void testDoubleVideo() throws MalformedURLException, InterruptedException {
+        setUp();
+        driver.findElementById("message").click();
+        Time(2);
+        driver.findElementsById("name").get(0).click();
+        //聊天页面
+        Time(2);
+        driver.findElementById("right").click();
+        Time(2);
+        //播放页面
+
+        videoClick();
+        println("双播放器测试完成");
+    }
+
+
     private void videoClick() throws InterruptedException, NoSuchElementException {
-        AndroidElement videoPlayer = driver.findElementById("video_player");//点击空屏幕
+        AndroidElement videoPlayer = driver.findElementById("main_control");//点击空屏幕
 
         String result = request.sendGet("http://testing.qatime.cn/api/v1/live_studio/courses/5");
 
