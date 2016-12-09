@@ -28,7 +28,7 @@ public class MyConsumptionRecordTest extends MyWalletAndRechargeTest {
     @Test
     public void testConsumptionRecordFund() throws MalformedURLException, InterruptedException {
         testMyWallet();
-        AndroidElement recharge_record = driver.findElementById("cn.qatime.player:id/consumption_record");//消费记录
+        AndroidElement recharge_record = driver.findElementById("consumption_record");//消费记录
         recharge_record.click();
         Time(2);
 
@@ -37,10 +37,10 @@ public class MyConsumptionRecordTest extends MyWalletAndRechargeTest {
         AndroidElement list = driver.findElementById("android:id/list");//list
 
         if (bean.getData().size() > 0) {
-            MobileElement mode = driver.findElementsById("cn.qatime.player:id/mode").get(0);
-            MobileElement time = driver.findElementsById("cn.qatime.player:id/time").get(0);
-            MobileElement money_amount = driver.findElementsById("cn.qatime.player:id/money_amount").get(0);
-            MobileElement type = driver.findElementsById("cn.qatime.player:id/type").get(0);
+            MobileElement mode = driver.findElementsById("mode").get(0);
+            MobileElement time = driver.findElementsById("time").get(0);
+            MobileElement money_amount = driver.findElementsById("money_amount").get(0);
+            MobileElement type = driver.findElementsById("type").get(0);
 
 
             DecimalFormat df = new DecimalFormat("#.00");

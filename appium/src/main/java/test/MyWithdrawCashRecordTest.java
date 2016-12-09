@@ -28,7 +28,7 @@ public class MyWithdrawCashRecordTest extends MyWalletAndRechargeTest {
     @Test
     public void testConsumptionRecordFund() throws MalformedURLException, InterruptedException {
         testMyWallet();
-        AndroidElement recharge_record = driver.findElementById("cn.qatime.player:id/withdraw_record");//消费记录
+        AndroidElement recharge_record = driver.findElementById("withdraw_record");//消费记录
         recharge_record.click();
         Time(2);
         String result = HttpRequest.sendGet("http://testing.qatime.cn/api/v1/payment/users/" + ConstantValue.userId + "/withdraws?page=1");
@@ -36,11 +36,11 @@ public class MyWithdrawCashRecordTest extends MyWalletAndRechargeTest {
         AndroidElement list = driver.findElementById("android:id/list");//list
 
         if (bean.getData().size() > 0) {
-            MobileElement mode = driver.findElementsById("cn.qatime.player:id/mode").get(0);
-            MobileElement time = driver.findElementsById("cn.qatime.player:id/time").get(0);
-            MobileElement money_amount = driver.findElementsById("cn.qatime.player:id/money_amount").get(0);
-            MobileElement status = driver.findElementsById("cn.qatime.player:id/status").get(0);
-            MobileElement id = driver.findElementsById("cn.qatime.player:id/id").get(0);
+            MobileElement mode = driver.findElementsById("mode").get(0);
+            MobileElement time = driver.findElementsById("time").get(0);
+            MobileElement money_amount = driver.findElementsById("money_amount").get(0);
+            MobileElement status = driver.findElementsById("status").get(0);
+            MobileElement id = driver.findElementsById("id").get(0);
 
 
             DecimalFormat df = new DecimalFormat("#.00");

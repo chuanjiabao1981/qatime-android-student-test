@@ -18,7 +18,7 @@ import util.JsonUtils;
 public class TeacherDataTest extends BaseTest {
     public void toTeacherDataPage() throws MalformedURLException, InterruptedException {
         setUp();
-        AndroidElement teacherItem = driver.findElementsById("cn.qatime.player:id/teacher_text").get(0);
+        AndroidElement teacherItem = driver.findElementsById("teacher_text").get(0);
         teacherItem.click();
         Time(2);
     }
@@ -33,13 +33,13 @@ public class TeacherDataTest extends BaseTest {
         TeacherDataBean.DataBean teacherData = JsonUtils.objectFromJson(teacherResult, TeacherDataBean.class).getData();
         TeacherDataBean.DataBean.Course course = teacherData.getCourses().get(0);//第一条数据
 
-        AndroidElement name = driver.findElementById("cn.qatime.player:id/name");
-        AndroidElement teachAge = driver.findElementById("cn.qatime.player:id/teach_age");
-        AndroidElement school = driver.findElementById("cn.qatime.player:id/school");
-        AndroidElement describe = driver.findElementById("cn.qatime.player:id/describe");
-        AndroidElement title = driver.findElementById("cn.qatime.player:id/course_title");
-        AndroidElement subject = driver.findElementById("cn.qatime.player:id/subject");
-        AndroidElement count = driver.findElementById("cn.qatime.player:id/count");
+        AndroidElement name = driver.findElementById("name");
+        AndroidElement teachAge = driver.findElementById("teach_age");
+        AndroidElement school = driver.findElementById("school");
+        AndroidElement describe = driver.findElementById("describe");
+        AndroidElement title = driver.findElementById("course_title");
+        AndroidElement subject = driver.findElementById("subject");
+        AndroidElement count = driver.findElementById("count");
 
         Assert.assertEquals(name.getText(), teacherData.getName());
         Assert.assertEquals(teachAge.getText(), getTeachingYear(teacherData.getTeaching_years()));

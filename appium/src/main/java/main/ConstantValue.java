@@ -12,7 +12,7 @@ public class ConstantValue {
     /**
      * app文件名
      */
-    public static String appName = "app-debug.apk";
+    public static String appName = "qatime_android_0.8.0_flavors_debug.apk";
 
     /**
      * 设备名称
@@ -27,7 +27,7 @@ public class ConstantValue {
     /**
      * app包名
      */
-    public static String appPackage = "cn.qatime.player";
+    public static String appPackage = "cn.qatime.player.debug";
 
     /**
      * 要启动的Activity
@@ -36,7 +36,7 @@ public class ConstantValue {
     /**
      * 获取数据时的token
      */
-    public static String token = "PhUJzPAHRzzpc2MPL8OJIA";
+    public static String token = "sobpS1NntCvYrbpL2DKN-w";
 
     /**
      * 测试账号

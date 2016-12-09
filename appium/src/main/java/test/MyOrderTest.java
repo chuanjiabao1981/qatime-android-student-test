@@ -24,7 +24,7 @@ public class MyOrderTest extends BaseTest {
         AndroidElement tab4 = driver.findElementById("tab_text4");
         tab4.click();
         Time(2);
-//        cn.qatime.player:id/paying
+//        paying
         //到代付款
         AndroidElement paying = driver.findElementById("paying");
         paying.click();
@@ -45,14 +45,14 @@ public class MyOrderTest extends BaseTest {
         //每页最多五个
         
         Assert.assertEquals(bean.data.size() > 5 ? 5 : bean.data.size(), item.size());
-//        cn.qatime.player:id/classname
-//        cn.qatime.player:id/grade
-//        cn.qatime.player:id/subject
-//        cn.qatime.player:id/teacher
-//        cn.qatime.player:id/progress
-//        cn.qatime.player:id/price
-//        cn.qatime.player:id/cancel_order
-//        cn.qatime.player:id/pay
+//        classname
+//        grade
+//        subject
+//        teacher
+//        progress
+//        price
+//        cancel_order
+//        pay
 
         if (bean.data.size() > 0) {
             MobileElement classname = driver.findElementsById("classname").get(0);
@@ -107,14 +107,14 @@ public class MyOrderTest extends BaseTest {
         List<MobileElement> item = list.findElementsByClassName(ClassName.ImageView);
         //每页5个
         Assert.assertEquals(bean.data.size() > 5 ? 5 : bean.data.size(), item.size());
-//        cn.qatime.player:id/classname
-//        cn.qatime.player:id/grade
-//        cn.qatime.player:id/subject
-//        cn.qatime.player:id/teacher
-//        cn.qatime.player:id/progress
-//        cn.qatime.player:id/price
-//        cn.qatime.player:id/cancel_order
-//        cn.qatime.player:id/pay
+//        classname
+//        grade
+//        subject
+//        teacher
+//        progress
+//        price
+//        cancel_order
+//        pay
 
         if (bean.data.size() > 0) {
             MobileElement classname = driver.findElementsById("classname").get(0);
@@ -155,14 +155,14 @@ public class MyOrderTest extends BaseTest {
         List<MobileElement> item = list.findElementsByClassName(ClassName.ImageView);
         //每页5个
         Assert.assertEquals(bean.data.size() > 5 ? 5 : bean.data.size(), item.size());
-//        cn.qatime.player:id/classname
-//        cn.qatime.player:id/grade
-//        cn.qatime.player:id/subject
-//        cn.qatime.player:id/teacher
-//        cn.qatime.player:id/progress
-//        cn.qatime.player:id/price
-//        cn.qatime.player:id/cancel_order
-//        cn.qatime.player:id/pay
+//        classname
+//        grade
+//        subject
+//        teacher
+//        progress
+//        price
+//        cancel_order
+//        pay
 
         if (bean.data.size() > 0) {
             MobileElement classname = driver.findElementsById("classname").get(0);

@@ -33,7 +33,7 @@ public class SecurityManagerTest extends BaseTest {
         tab4.click();
         Time(2);
         //转到安全管理
-        AndroidElement security = driver.findElementById("cn.qatime.player:id/security");
+        AndroidElement security = driver.findElementById("security");
         security.click();
         Time(2);
     }
@@ -42,9 +42,9 @@ public class SecurityManagerTest extends BaseTest {
     public void testSecurityManagerPage() throws MalformedURLException, InterruptedException {
         toSecurityManager();
 
-        AndroidElement phoneM = driver.findElementById("cn.qatime.player:id/phone_number_m");
-        AndroidElement phoneP = driver.findElementById("cn.qatime.player:id/phone_number_p");
-        AndroidElement email = driver.findElementById("cn.qatime.player:id/email");
+        AndroidElement phoneM = driver.findElementById("phone_number_m");
+        AndroidElement phoneP = driver.findElementById("phone_number_p");
+        AndroidElement email = driver.findElementById("email");
 
         String result = request.sendGet("http://testing.qatime.cn/api/v1/students/" + ConstantValue.userId + "/info");
         PersonalInformationBean bean = JsonUtils.objectFromJson(result, PersonalInformationBean.class);
@@ -59,15 +59,15 @@ public class SecurityManagerTest extends BaseTest {
     public void testVerifyPhonePage() throws MalformedURLException, InterruptedException {
         toSecurityManager();
         //跳到验证手机页面
-        AndroidElement bindPhone = driver.findElementById("cn.qatime.player:id/bind_phone_number");
+        AndroidElement bindPhone = driver.findElementById("bind_phone_number");
         bindPhone.click();
         Time(2);
 
 
-        AndroidElement currentPhone = driver.findElementById("cn.qatime.player:id/current_phone");
-        AndroidElement code = driver.findElementById("cn.qatime.player:id/code");
-        AndroidElement getCode = driver.findElementById("cn.qatime.player:id/text_getcode");
-        AndroidElement next = driver.findElementById("cn.qatime.player:id/button_next");
+        AndroidElement currentPhone = driver.findElementById("current_phone");
+        AndroidElement code = driver.findElementById("code");
+        AndroidElement getCode = driver.findElementById("text_getcode");
+        AndroidElement next = driver.findElementById("button_next");
 
 
         String result = request.sendGet("http://testing.qatime.cn/api/v1/students/" + ConstantValue.userId + "/info");
@@ -85,14 +85,14 @@ public class SecurityManagerTest extends BaseTest {
     public void testParentPhone() throws MalformedURLException, InterruptedException {
         toSecurityManager();
         //跳到验证手机页面
-        AndroidElement parentPhone = driver.findElementById("cn.qatime.player:id/parent_phone_number");
+        AndroidElement parentPhone = driver.findElementById("parent_phone_number");
         parentPhone.click();
         Time(2);
 
 
-        AndroidElement currentParentPhone = driver.findElementById("cn.qatime.player:id/current_parent_phone");
-        AndroidElement getCode = driver.findElementById("cn.qatime.player:id/text_getcode");
-        AndroidElement newPhone = driver.findElementById("cn.qatime.player:id/new_parent_phone");
+        AndroidElement currentParentPhone = driver.findElementById("current_parent_phone");
+        AndroidElement getCode = driver.findElementById("text_getcode");
+        AndroidElement newPhone = driver.findElementById("new_parent_phone");
 
 
         String result = request.sendGet("http://testing.qatime.cn/api/v1/students/" + ConstantValue.userId + "/info");
@@ -112,12 +112,12 @@ public class SecurityManagerTest extends BaseTest {
     public void testChangePWD() throws MalformedURLException, InterruptedException {
         toSecurityManager();
         //跳到验证手机页面
-        AndroidElement changePWD = driver.findElementById("cn.qatime.player:id/change_password");
+        AndroidElement changePWD = driver.findElementById("change_password");
         changePWD.click();
         Time(2);
 
 
-        AndroidElement forgetPwd = driver.findElementById("cn.qatime.player:id/forget_password");
+        AndroidElement forgetPwd = driver.findElementById("forget_password");
 
 
         forgetPwd.click();
@@ -126,18 +126,18 @@ public class SecurityManagerTest extends BaseTest {
         String result = request.sendGet("http://testing.qatime.cn/api/v1/students/" + ConstantValue.userId + "/info");
         PersonalInformationBean bean = JsonUtils.objectFromJson(result, PersonalInformationBean.class);
 
-        AndroidElement currentPhone = driver.findElementById("cn.qatime.player:id/current_phone");
-        AndroidElement newPass = driver.findElementById("cn.qatime.player:id/new_pass");
+        AndroidElement currentPhone = driver.findElementById("current_phone");
+        AndroidElement newPass = driver.findElementById("new_pass");
         Assert.assertEquals(currentPhone.getText(), (bean.getData().getLogin_mobile()) == null ? "未绑定" : bean.getData().getLogin_mobile());
 
         AndroidElement back = driver.findElementsByClassName(ClassName.ImageView).get(0);
         back.click();
         Time(2);
 
-        AndroidElement password = driver.findElementById("cn.qatime.player:id/password");
-        AndroidElement newPwd1 = driver.findElementById("cn.qatime.player:id/new_password");
-        AndroidElement newPwd2 = driver.findElementById("cn.qatime.player:id/confirm_new_password");
-        AndroidElement over = driver.findElementById("cn.qatime.player:id/button_over");
+        AndroidElement password = driver.findElementById("password");
+        AndroidElement newPwd1 = driver.findElementById("new_password");
+        AndroidElement newPwd2 = driver.findElementById("confirm_new_password");
+        AndroidElement over = driver.findElementById("button_over");
 
         password.sendKeys("qqqqqq");
         Time(2);
@@ -151,8 +151,8 @@ public class SecurityManagerTest extends BaseTest {
 
         //判断是否在登录页面
 
-        AndroidElement register = driver.findElementById("cn.qatime.player:id/register");
-        AndroidElement login = driver.findElementById("cn.qatime.player:id/login");
+        AndroidElement register = driver.findElementById("register");
+        AndroidElement login = driver.findElementById("login");
 
         //使用新密码登陆
         ConstantValue.password = "111111";
@@ -165,10 +165,10 @@ public class SecurityManagerTest extends BaseTest {
     public void testBindPhonePage() throws MalformedURLException, InterruptedException {
         toSecurityManager();
 //自动跳不过去
-//        AndroidElement currentPhone = driver.findElementById("cn.qatime.player:id/current_phone");
-//        AndroidElement code = driver.findElementById("cn.qatime.player:id/code");
-//        AndroidElement getCode = driver.findElementById("cn.qatime.player:id/text_getcode");
-//        AndroidElement next = driver.findElementById("cn.qatime.player:id/button_next");
+//        AndroidElement currentPhone = driver.findElementById("current_phone");
+//        AndroidElement code = driver.findElementById("code");
+//        AndroidElement getCode = driver.findElementById("text_getcode");
+//        AndroidElement next = driver.findElementById("button_next");
 //
 //        String result = request.sendGet("http://testing.qatime.cn/api/v1/students/" + ConstantValue.userId + "/info");
 //        PersonalInformationBean bean = JsonUtils.objectFromJson(result, PersonalInformationBean.class);

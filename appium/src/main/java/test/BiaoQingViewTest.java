@@ -35,16 +35,16 @@ public class BiaoQingViewTest extends BaseTest {
         tab4.click();
         Time(2);
         //转已经开课
-        AndroidElement calssed = driver.findElementById("cn.qatime.player:id/calssed");
+        AndroidElement calssed = driver.findElementById("calssed");
         calssed.click();
         Time(2);
         //转到player
-        List<AndroidElement> player = driver.findElementsById("cn.qatime.player:id/video");
+        List<AndroidElement> player = driver.findElementsById("video");
         player.get(0).click();
         Time(2);
 
         //转到聊天
-        AndroidElement tabText2 = driver.findElementById("cn.qatime.player:id/tab_text2");
+        AndroidElement tabText2 = driver.findElementById("tab_text2");
         tabText2.click();
         Time(2);
 
@@ -55,7 +55,7 @@ public class BiaoQingViewTest extends BaseTest {
     public void testMessageBiaoQingView() throws InterruptedException, MalformedURLException {
         toMessagePage();
 
-        AndroidElement emoji = driver.findElementById("cn.qatime.player:id/emoji");
+        AndroidElement emoji = driver.findElementById("emoji");
         emoji.click();
         Time(2);
         AndroidElement grid = driver.findElementByClassName(ClassName.GridView);
@@ -63,7 +63,7 @@ public class BiaoQingViewTest extends BaseTest {
 
         imageView.get(0).click();
 
-        AndroidElement content = driver.findElementById("cn.qatime.player:id/content");
+        AndroidElement content = driver.findElementById("content");
 
         Assert.assertEquals(content.getText(), "[em_1]");
 
@@ -80,7 +80,7 @@ public class BiaoQingViewTest extends BaseTest {
     public void testPlayerBiaoQingView() throws InterruptedException, MalformedURLException {
         toPlayerPage();
 
-        AndroidElement emoji = driver.findElementById("cn.qatime.player:id/emoji");
+        AndroidElement emoji = driver.findElementById("emoji");
         emoji.click();
         Time(2);
         AndroidElement grid = driver.findElementByClassName(ClassName.GridView);
@@ -88,7 +88,7 @@ public class BiaoQingViewTest extends BaseTest {
 
         imageView.get(0).click();
 
-        AndroidElement content = driver.findElementById("cn.qatime.player:id/content");
+        AndroidElement content = driver.findElementById("content");
 
         Assert.assertEquals(content.getText(), "[em_1]");
 

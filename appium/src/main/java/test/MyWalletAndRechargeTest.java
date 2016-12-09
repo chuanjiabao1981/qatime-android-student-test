@@ -37,7 +37,7 @@ public class MyWalletAndRechargeTest extends BaseTest {
         tab4.click();
         Time(2);
         //转到安全管理
-        AndroidElement myWallet = driver.findElementById("cn.qatime.player:id/my_wallet");
+        AndroidElement myWallet = driver.findElementById("my_wallet");
         myWallet.click();
         Time(2);
     }
@@ -56,12 +56,12 @@ public class MyWalletAndRechargeTest extends BaseTest {
         if (price.startsWith(".")) {
             price = "0" + price;
         }
-        AndroidElement balance = driver.findElementById("cn.qatime.player:id/balance");//钱包余额
+        AndroidElement balance = driver.findElementById("balance");//钱包余额
         Assert.assertEquals(balance.getText().toString(), price);
 
         price = df.format(Double.valueOf(bean.getData().getTotal_expenditure()));
 
-        AndroidElement consumption = driver.findElementById("cn.qatime.player:id/consumption");//累计消费
+        AndroidElement consumption = driver.findElementById("consumption");//累计消费
 
         if (price.startsWith(".")) {
             price = "0" + price;
@@ -78,14 +78,14 @@ public class MyWalletAndRechargeTest extends BaseTest {
     @Test
     public void testRecharge() throws MalformedURLException, InterruptedException {
         testMyWallet();
-        AndroidElement recharge = driver.findElementById("cn.qatime.player:id/recharge");
+        AndroidElement recharge = driver.findElementById("recharge");
         recharge.click();
         Time(2);
 
 
         Assert.assertEquals(".activity.RechargeActivity", driver.currentActivity());//RechargeActivity
-        AndroidElement num = driver.findElementById("cn.qatime.player:id/recharge_num");//edittext
-        AndroidElement weixin = driver.findElementById("cn.qatime.player:id/wechat_pay");//钱包余额
+        AndroidElement num = driver.findElementById("recharge_num");//edittext
+        AndroidElement weixin = driver.findElementById("wechat_pay");//钱包余额
         num.sendKeys("1000.00");//限制只能有2位小数
 
         String pay_type = weixin.isSelected() ? "weixin" : "alipay";
@@ -96,7 +96,7 @@ public class MyWalletAndRechargeTest extends BaseTest {
         String s = request.sendPost(UrlUtils.urlPayment + ConstantValue.userId + "/recharges", UrlUtils.getUrl("", map));
         RechargeOrderBean bean = JsonUtils.objectFromJson(s, RechargeOrderBean.class);
 
-        AndroidElement recharge_now = driver.findElementById("cn.qatime.player:id/recharge_now");//立即充值按钮
+        AndroidElement recharge_now = driver.findElementById("recharge_now");//立即充值按钮
         recharge_now.click();
         Time(5);
 
@@ -104,13 +104,13 @@ public class MyWalletAndRechargeTest extends BaseTest {
         Assert.assertEquals(".activity.RechargeConfirmActivity", driver.currentActivity());//RechargeConfirmActivity支付确认页面
 
 
-        AndroidElement id = driver.findElementById("cn.qatime.player:id/id");//订单id
+        AndroidElement id = driver.findElementById("id");//订单id
         Assert.assertEquals(bean.getData().getId(), id.getText().toString());
 
-        AndroidElement time = driver.findElementById("cn.qatime.player:id/time");//订单时间
+        AndroidElement time = driver.findElementById("time");//订单时间
         Assert.assertEquals(bean.getData().getCreated_at(), time.getText().toString());
 
-        AndroidElement mode = driver.findElementById("cn.qatime.player:id/mode");//支付方式
+        AndroidElement mode = driver.findElementById("mode");//支付方式
         Assert.assertEquals(getPayType(bean.getData().getPay_type()), mode.getText().toString());
 
         DecimalFormat df = new DecimalFormat("#.00");
@@ -119,7 +119,7 @@ public class MyWalletAndRechargeTest extends BaseTest {
             price = "0" + price;
         }
         price = "￥" + price;
-        AndroidElement amount = driver.findElementById("cn.qatime.player:id/amount");//金额
+        AndroidElement amount = driver.findElementById("amount");//金额
         Assert.assertEquals(price, amount.getText().toString());
 
 
@@ -133,7 +133,7 @@ public class MyWalletAndRechargeTest extends BaseTest {
     @Test
     public void testRechargeRecordFund() throws MalformedURLException, InterruptedException {
         testMyWallet();
-        AndroidElement recharge_record = driver.findElementById("cn.qatime.player:id/recharge_record");//充值记录
+        AndroidElement recharge_record = driver.findElementById("recharge_record");//充值记录
         recharge_record.click();
         Time(2);
         String result = HttpRequest.sendGet("http://testing.qatime.cn/api/v1/payment/users/" + ConstantValue.userId + "/recharges?page=1");
@@ -141,11 +141,11 @@ public class MyWalletAndRechargeTest extends BaseTest {
         AndroidElement list = driver.findElementById("android:id/list");//list
 
         if (bean.getData().size() > 0) {
-            MobileElement id = driver.findElementsById("cn.qatime.player:id/id").get(0);
-            MobileElement mode = driver.findElementsById("cn.qatime.player:id/mode").get(0);
-            MobileElement time = driver.findElementsById("cn.qatime.player:id/time").get(0);
-            MobileElement money_amount = driver.findElementsById("cn.qatime.player:id/money_amount").get(0);
-            MobileElement status = driver.findElementsById("cn.qatime.player:id/status").get(0);
+            MobileElement id = driver.findElementsById("id").get(0);
+            MobileElement mode = driver.findElementsById("mode").get(0);
+            MobileElement time = driver.findElementsById("time").get(0);
+            MobileElement money_amount = driver.findElementsById("money_amount").get(0);
+            MobileElement status = driver.findElementsById("status").get(0);
 
 
             DecimalFormat df = new DecimalFormat("#.00");

@@ -34,7 +34,7 @@ public class SystemSetingTest extends BaseTest {
         tab4.click();
         Time(2);
         //转到安全管理
-        AndroidElement setting = driver.findElementById("cn.qatime.player:id/setting");
+        AndroidElement setting = driver.findElementById("setting");
         setting.click();
         Time(2);
     }
@@ -43,16 +43,16 @@ public class SystemSetingTest extends BaseTest {
     public void testSystemSettingPage() throws MalformedURLException, InterruptedException {
         toSystemSetting();
 
-        AndroidElement learning = driver.findElementById("cn.qatime.player:id/learning_process");
-        AndroidElement notify = driver.findElementById("cn.qatime.player:id/notify_setting");
-        AndroidElement update = driver.findElementById("cn.qatime.player:id/check_update");
-        AndroidElement clean = driver.findElementById("cn.qatime.player:id/clean_cache");
-        AndroidElement about = driver.findElementById("cn.qatime.player:id/about");
+        AndroidElement learning = driver.findElementById("learning_process");
+        AndroidElement notify = driver.findElementById("notify_setting");
+        AndroidElement update = driver.findElementById("check_update");
+        AndroidElement clean = driver.findElementById("clean_cache");
+        AndroidElement about = driver.findElementById("about");
 
 
         update.click();
         Time(2);
-        AndroidElement download = driver.findElementById("cn.qatime.player:id/download");
+        AndroidElement download = driver.findElementById("download");
 
         download.click();
 
@@ -62,13 +62,13 @@ public class SystemSetingTest extends BaseTest {
     public void testNotifySettingPage() throws MalformedURLException, InterruptedException {
         toSystemSetting();
 
-        AndroidElement notify = driver.findElementById("cn.qatime.player:id/notify_setting");
+        AndroidElement notify = driver.findElementById("notify_setting");
 
         notify.click();
         Time(2);
 
-        AndroidElement message = driver.findElementById("cn.qatime.player:id/notify_message");
-        AndroidElement classes = driver.findElementById("cn.qatime.player:id/notify_classes");
+        AndroidElement message = driver.findElementById("notify_message");
+        AndroidElement classes = driver.findElementById("notify_classes");
 
 
 //        AndroidElement back = driver.findElementsByClassName(ClassName.ImageView).get(0);
@@ -80,18 +80,18 @@ public class SystemSetingTest extends BaseTest {
     public void testMessageSettingPage() throws MalformedURLException, InterruptedException {
         testNotifySettingPage();
 
-        AndroidElement notify = driver.findElementById("cn.qatime.player:id/notify_message");
+        AndroidElement notify = driver.findElementById("notify_message");
         notify.click();
         Time(2);
 
-        AndroidElement cbVoice = driver.findElementById("cn.qatime.player:id/cb_voice");
-        AndroidElement cbShake = driver.findElementById("cn.qatime.player:id/cb_shake");
+        AndroidElement cbVoice = driver.findElementById("cb_voice");
+        AndroidElement cbShake = driver.findElementById("cb_shake");
 
         String checked1 = cbVoice.getAttribute("checked");
         String checked2 = cbShake.getAttribute("checked");
 
-        AndroidElement voice = driver.findElementById("cn.qatime.player:id/voice");
-        AndroidElement shake = driver.findElementById("cn.qatime.player:id/shake");
+        AndroidElement voice = driver.findElementById("voice");
+        AndroidElement shake = driver.findElementById("shake");
         voice.click();
         shake.click();
         Time(2);
@@ -116,16 +116,16 @@ public class SystemSetingTest extends BaseTest {
     public void testCourseSettingPage() throws MalformedURLException, InterruptedException {
         testNotifySettingPage();
 
-        AndroidElement classes = driver.findElementById("cn.qatime.player:id/notify_classes");
+        AndroidElement classes = driver.findElementById("notify_classes");
         classes.click();
         Time(2);
 
-        AndroidElement cb1 = driver.findElementById("cn.qatime.player:id/cb_1");
-        AndroidElement cb2 = driver.findElementById("cn.qatime.player:id/cb_2");
-        AndroidElement sms = driver.findElementById("cn.qatime.player:id/sms");
-        AndroidElement sys = driver.findElementById("cn.qatime.player:id/sys");
-        AndroidElement sHours = driver.findElementById("cn.qatime.player:id/spinner_hours");
-        AndroidElement sMinute = driver.findElementById("cn.qatime.player:id/spinner_minute");
+        AndroidElement cb1 = driver.findElementById("cb_1");
+        AndroidElement cb2 = driver.findElementById("cb_2");
+        AndroidElement sms = driver.findElementById("sms");
+        AndroidElement sys = driver.findElementById("sys");
+        AndroidElement sHours = driver.findElementById("spinner_hours");
+        AndroidElement sMinute = driver.findElementById("spinner_minute");
 
 
         sHours.click();
@@ -184,12 +184,12 @@ public class SystemSetingTest extends BaseTest {
     public void testAboutUs() throws MalformedURLException, InterruptedException {
         toSystemSetting();
 
-        AndroidElement about = driver.findElementById("cn.qatime.player:id/about");
+        AndroidElement about = driver.findElementById("about");
         about.click();
         Time(2);
 
-        AndroidElement callPhone = driver.findElementById("cn.qatime.player:id/call_phone");
-        AndroidElement phone1 = driver.findElementById("cn.qatime.player:id/phone");
+        AndroidElement callPhone = driver.findElementById("call_phone");
+        AndroidElement phone1 = driver.findElementById("phone");
         String phone = phone1.getText();
         Assert.assertEquals(phone,"0353-2135828");
         callPhone.click();
@@ -204,7 +204,7 @@ public class SystemSetingTest extends BaseTest {
     public void exitLogin() throws MalformedURLException, InterruptedException {
         toSystemSetting();
 
-        AndroidElement exit = driver.findElementById("cn.qatime.player:id/exit");
+        AndroidElement exit = driver.findElementById("exit");
         exit.click();
         Time(2);
 

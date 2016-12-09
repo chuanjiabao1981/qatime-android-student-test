@@ -2,7 +2,6 @@ package test;
 
 
 import org.junit.Assert;
-import org.openqa.jetty.util.StringUtil;
 import org.openqa.selenium.NoSuchElementException;
 
 import java.io.IOException;
@@ -22,7 +21,7 @@ public class BaseTest extends BaseAppiumTest {
      */
 //    @Test
     public void setUp() throws InterruptedException, MalformedURLException {
-        Time(3);
+        Time(5);
         try { //首页测试
             onHome();//用于主页的测试
         } catch (NoSuchElementException e) {
