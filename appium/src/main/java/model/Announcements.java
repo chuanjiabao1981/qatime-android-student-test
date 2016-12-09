@@ -40,6 +40,16 @@ public class Announcements implements Serializable{
 
     public static class DataBean {
         private String current_lesson_status;
+
+        private String owner;
+
+        public String getOwner() {
+            return owner;
+        }
+
+        public void setOwner(String owner) {
+            this.owner = owner;
+        }
         /**
          * announcement :
          * edit_at : 2016-08-17T18:16:48.037+08:00
@@ -104,7 +114,14 @@ public class Announcements implements Serializable{
             private String name;
             private String icon;
             private String firstLetter;
+            private boolean owner;
 
+            public boolean isOwner() {
+                return owner;
+            }
+            public void setOwner(boolean owner) {
+                this.owner = owner;
+            }
             public String getAccid() {
                 return accid;
             }

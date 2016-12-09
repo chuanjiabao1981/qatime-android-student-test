@@ -32,7 +32,10 @@ public class AnnouncementTest extends BaseTest {
     /**
      * 转到直播页
      */
-    private void toOnline() throws InterruptedException {
+    private void toOnline() throws InterruptedException, MalformedURLException {
+        setUp();
+
+
         Map<String, String> map = new HashMap<>();
         map.put("page", String.valueOf(1));
         map.put("per_page", "10");
@@ -44,14 +47,17 @@ public class AnnouncementTest extends BaseTest {
         AndroidElement tab4 = driver.findElementById("tab_text4");
         tab4.click();
 
-        Assert.assertEquals(".activity.MainActivity", driver.currentActivity());
+        Assert.assertEquals("cn.qatime.player.activity.MainActivity", driver.currentActivity());
 
-        //已开课
-        AndroidElement calssed = driver.findElementById("calssed");
+        //我的辅导
+        AndroidElement calssed = driver.findElementById("my_course");
         calssed.click();
-        Assert.assertEquals(".activity.PersonalMyTutorshipActivity", driver.currentActivity());
+        Assert.assertEquals("cn.qatime.player.activity.PersonalMyTutorshipActivity", driver.currentActivity());
         Time(3);
-        List<AndroidElement> list = driver.findElementsById("video");
+        AndroidElement tab_text3 = driver.findElementById("tab_text3");
+        tab_text3.click();
+        Time(3);
+        List<AndroidElement> list = driver.findElementsById("enter");
         //我的辅导班 点击item的position
         clicckItem(list, 1);
     }
@@ -82,14 +88,13 @@ public class AnnouncementTest extends BaseTest {
      */
     @Test
     public void testAnnouncement() throws MalformedURLException, InterruptedException {
-        setUp();
+      
         toOnline();
-        Assert.assertEquals(driver.currentActivity(), ".activity.NEVideoPlayerActivity");
+        Assert.assertEquals(driver.currentActivity(), "cn.qatime.player.activity.NEVideoPlayerActivity");
 
         List<AndroidElement> list = driver.findElementsById("time");
 
-        Assert.assertEquals(data.getData().getAnnouncements().size(), list.size());
-
+        Assert.assertTrue(data.getData().getAnnouncements().size() >= list.size());
         for (int i = 0; i < list.size(); i++) {
             Assert.assertEquals(StringUtils.isNullOrBlanK(data.getData().getAnnouncements().get(i).getEdit_at()) ? "2016-00-00 00:00:00" : data.getData().getAnnouncements().get(i).getEdit_at(), list.get(i).getText());
             Assert.assertEquals(StringUtils.isNullOrBlanK(data.getData().getAnnouncements().get(i).getAnnouncement()) ? "本节课需要大家提前预习内容，以免手忙脚乱听不懂！" : data.getData().getAnnouncements().get(i).getAnnouncement(), driver.findElementsById("describe").get(i).getText());
@@ -97,23 +102,42 @@ public class AnnouncementTest extends BaseTest {
         println("群组公告测试完成");
     }
 
+
+    @Test
+    public void testDetails() throws MalformedURLException, InterruptedException {
+      
+        toOnline();
+        Assert.assertEquals(driver.currentActivity(), "cn.qatime.player.activity.NEVideoPlayerActivity");
+        //转到第三页
+        driver.findElementById("tab_text3").click();
+        Time(2);
+
+
+    }
     /**
      * QTA-28成员列表
      */
     @Test
     public void testMember() throws MalformedURLException, InterruptedException {
-        setUp();
+      
         toOnline();
-        Assert.assertEquals(driver.currentActivity(), ".activity.NEVideoPlayerActivity");
+        Assert.assertEquals(driver.currentActivity(), "cn.qatime.player.activity.NEVideoPlayerActivity");
         //转到第四页
         driver.findElementById("tab_text4").click();
         Time(2);
 
         List<AndroidElement> list = driver.findElementsById("image");
 
-        Assert.assertEquals(data.getData().getMembers().size(), list.size());
+        Assert.assertTrue(data.getData().getMembers().size() >= list.size());
 
         for (Announcements.DataBean.MembersBean item : data.getData().getMembers()) {
+            if (!StringUtils.isNullOrBlanK(data.getData().getOwner())) {
+                if (data.getData().getOwner().equals(item.getAccid())) {
+                    item.setOwner(true);
+                } else {
+                    item.setOwner(false);
+                }
+            }
             if (StringUtils.isNullOrBlanK(item.getName())) {
                 item.setFirstLetter("");
             } else {
@@ -124,11 +148,18 @@ public class AnnouncementTest extends BaseTest {
         Collections.sort(data.getData().getMembers(), new Comparator<Announcements.DataBean.MembersBean>() {
             @Override
             public int compare(Announcements.DataBean.MembersBean lhs, Announcements.DataBean.MembersBean rhs) {
-                return lhs.getFirstLetter().compareTo(rhs.getFirstLetter());
+                return rhs.isOwner() ? 1 : lhs.getFirstLetter().compareTo(rhs.getFirstLetter());
             }
         });
+        List<MobileElement> names = driver.findElementById("listview").findElementsById("name");
+        List<MobileElement> roles = driver.findElementById("listview").findElementsById("role");
         for (int i = 0; i < list.size(); i++) {
-            Assert.assertEquals(StringUtils.isNullOrBlanK(data.getData().getMembers().get(i).getName()) ? "名字" : data.getData().getMembers().get(i).getName(), driver.findElementById("listview").findElementsById("name").get(i).getText());
+            Assert.assertEquals(StringUtils.isNullOrBlanK(data.getData().getMembers().get(i).getName()) ? "无名" : data.getData().getMembers().get(i).getName(), names.get(i).getText());
+            if (data.getData().getMembers().get(i).isOwner()) {
+                Assert.assertEquals("老师", roles.get(i).getText());
+            } else {
+                Assert.assertEquals("学生", roles.get(i).getText());
+            }
         }
 
         println("成员列表测试完成");

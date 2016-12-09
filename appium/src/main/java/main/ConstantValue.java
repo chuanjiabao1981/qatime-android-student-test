@@ -36,7 +36,7 @@ public class ConstantValue {
     /**
      * 获取数据时的token
      */
-    public static String token = "sobpS1NntCvYrbpL2DKN-w";
+    public static String token = "Wz6AWnY3YofN5ByW49f1bg";
 
     /**
      * 测试账号
