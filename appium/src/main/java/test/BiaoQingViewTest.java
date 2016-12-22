@@ -18,9 +18,9 @@ public class BiaoQingViewTest extends BaseTest {
     public void toMessagePage() throws MalformedURLException, InterruptedException {
         setUp();
         //转到fragment3
-        AndroidElement tab3 = driver.findElementById("tab_text3");
+        AndroidElement tab3 = driver.findElementById("message");
         tab3.click();
-        Time(2);
+        Time(5);
 
         AndroidElement list = driver.findElementById("android:id/list");
         list.findElementsByClassName(ClassName.RelativeLayout).get(0).click();
@@ -33,14 +33,19 @@ public class BiaoQingViewTest extends BaseTest {
         //转到fragment4
         AndroidElement tab4 = driver.findElementById("tab_text4");
         tab4.click();
-        Time(2);
-        //转已经开课
-        AndroidElement calssed = driver.findElementById("calssed");
+
+        org.junit.Assert.assertEquals("cn.qatime.player.activity.MainActivity", driver.currentActivity());
+
+        //我的辅导
+        AndroidElement calssed = driver.findElementById("my_course");
         calssed.click();
-        Time(2);
-        //转到player
-        List<AndroidElement> player = driver.findElementsById("video");
-        player.get(0).click();
+        org.junit.Assert.assertEquals("cn.qatime.player.activity.PersonalMyTutorshipActivity", driver.currentActivity());
+        Time(3);
+        AndroidElement tab_text3 = driver.findElementById("tab_text3");
+        tab_text3.click();
+        Time(3);
+        List<AndroidElement> enter  = driver.findElementsById("enter");
+        enter.get(0).click();
         Time(2);
 
         //转到聊天
