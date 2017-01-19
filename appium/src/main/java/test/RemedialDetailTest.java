@@ -289,6 +289,24 @@ public class RemedialDetailTest extends BaseTest {
 
         }
     }
+    /**
+     * 测试回放
+     */
+    @Test
+    public void testPlayBack() throws MalformedURLException, InterruptedException {
+        int testId=0;
+        toRemedialDetail(testId);
+
+        int width = driver.manage().window().getSize().width;
+        int height = driver.manage().window().getSize().height;
+
+        driver.swipe(width / 2, 300, width / 2, height - 200, 500);
+        Time(2000);
+        driver.swipe(width / 2, 300, width / 2, height - 200, 500);
+
+        driver.findElementsById("name").get(0).click();
+        //开始播放
+    }
 
     /**
      * 直播状态
