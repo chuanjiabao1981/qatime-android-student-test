@@ -30,13 +30,12 @@ public class BaseAppiumTest {
             capabilities.setCapability("deviceName", ConstantValue.deviceName);//手机机型名
             capabilities.setCapability("platformVersion", ConstantValue.platformVersion);//手机版本
             capabilities.setCapability("app", app.getAbsolutePath());//获取当前app包的路径
-//            capabilities.setCapability("unicodeKeyboard","True");//实现中文输入
+            capabilities.setCapability("unicodeKeyboard","True");//实现中文输入
             capabilities.setCapability("resetKeyboard", "True");//输入结束隐藏键盘
             capabilities.setCapability("appPackage", ConstantValue.appPackage);//app包名
             capabilities.setCapability("noSign", "True");//避免重签名
             capabilities.setCapability("StartActivity", ConstantValue.appActivity);//测试起始类，一般都是引导页
             driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);//初始化
-            int i = 0;
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
